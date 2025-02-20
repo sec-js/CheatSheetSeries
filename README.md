@@ -1,9 +1,9 @@
 # Welcome to the OWASP Cheat Sheet Series
 
 [![OWASP Flagship](https://img.shields.io/badge/owasp-flagship%20project-48A646.svg)](https://www.owasp.org/index.php/OWASP_Project_Inventory#tab=Flagship_Projects)
-[![Creative Commons License](https://licensebuttons.net/l/by-sa/4.0/88x31.png)](https://creativecommons.org/licenses/by-sa/4.0/ "CC BY-SA 4.0")
+[![Creative Commons License](https://img.shields.io/github/license/OWASP/CheatSheetSeries)](https://creativecommons.org/licenses/by-sa/4.0/ "CC BY-SA 4.0")
 
-Welcome to the official repository for the Open Web Application Security Project® (OWASP) Cheat Sheet Series project. The project focuses on providing good security practices for builders in order to secure their applications.
+Welcome to the official repository for the Open Worldwide Application Security Project® (OWASP) Cheat Sheet Series project. The project focuses on providing good security practices for builders in order to secure their applications.
 
 In order to read the cheat sheets and **reference** them, use the project [official website](https://cheatsheetseries.owasp.org). The project details can be viewed on the [OWASP main website](https://owasp.org/www-project-cheat-sheets/) without the cheat sheets.
 
@@ -44,7 +44,7 @@ This project is only possible thanks to the work of many dedicated volunteers. E
 
 This [link](https://cheatsheetseries.owasp.org/bundle.zip) allows you to download a build (ZIP archive) of the offline website.
 
-### Local build [![pyVersion3x](https://img.shields.io/badge/python-3.x-blue.svg)](https://www.python.org/downloads/)
+### Local Build [![pyVersion3x](https://img.shields.io/badge/python-3.x-blue.svg)](https://www.python.org/downloads/)
 
 The OWASP Cheat Sheet Series website can be built and tested locally by issuing the following commands:
 
@@ -52,6 +52,24 @@ The OWASP Cheat Sheet Series website can be built and tested locally by issuing 
 make install-python-requirements
 make generate-site
 make serve  # Binds port 8000
+```
+
+### Container Build
+
+The OWASP Cheat Sheet Series website can be built and tested locally inside a container by issuing the following commands:
+
+#### Docker
+
+```sh
+docker build -t cheatsheetseries .
+docker run --name cheatsheetseries -p 8000:8000 cheatsheetseries
+```
+
+#### Podman
+
+```sh
+podman build -t cheatsheetseries .
+podman run --name cheatsheetseries -p 8000:8000 localhost/cheatsheetseries
 ```
 
 ## Contributors
@@ -67,4 +85,4 @@ A special thank you to the following people for their help provided during the m
 - [Elie Saad](https://github.com/ThunderSon): For valuable help in updating the OWASP Wiki links for all the migrated cheat sheets and for years of leadership and other project support.
 - [Jakub Maćkowski](https://github.com/mackowski): For valuable help in updating the OWASP Wiki links for all the migrated cheat sheets.
 
-Open Web Application Security Project and OWASP are registered trademarks of the OWASP Foundation, Inc.
+Open Worldwide Application Security Project and OWASP are registered trademarks of the OWASP Foundation, Inc.

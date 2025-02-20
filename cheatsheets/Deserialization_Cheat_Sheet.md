@@ -10,7 +10,7 @@ This article is focused on providing clear, actionable guidance for safely deser
 
 **Deserialization** is the reverse of that process, taking data structured in some format, and rebuilding it into an object. Today, the most popular data format for serializing data is JSON. Before that, it was XML.
 
-However, many programming languages have native ways to serialize objects. These native formats usually offer more features than JSON or XML, including customizability of the serialization process.
+However, many programming languages have native ways to serialize objects. These native formats usually offer more features than JSON or XML, including customization of the serialization process.
 
 Unfortunately, the features of these native deserialization mechanisms can sometimes be repurposed for malicious effect when operating on untrusted data. Attacks against deserializers have been found to allow denial-of-service, access control, or remote code execution (RCE) attacks.
 
@@ -20,17 +20,17 @@ The following language-specific guidance attempts to enumerate safe methodologie
 
 ### PHP
 
-#### WhiteBox Review
+#### Clear-box Review
 
-Check the use of [unserialize()](https://www.php.net/manual/en/function.unserialize.php) function and review how the external parameters are accepted. Use a safe, standard data interchange format such as JSON (via `json_decode()` and `json_encode()`) if you need to pass serialized data to the user.
+Check the use of [`unserialize()`](https://www.php.net/manual/en/function.unserialize.php) function and review how the external parameters are accepted. Use a safe, standard data interchange format such as JSON (via `json_decode()` and `json_encode()`) if you need to pass serialized data to the user.
 
 ### Python
 
-#### BlackBox Review
+#### Opaque-box Review
 
-If the traffic data contains the symbol dot `.` at the end, it's very likely that the data was sent in serialization.
+If the traffic data contains the symbol dot `.` at the end, it's very likely that the data was sent in serialization. It will be only true if the data is not being encoded using Base64 or Hexadecimal schemas. If the data is being encoded, then it's best to check if the serialization is likely happening or not by looking at the starting characters of the parameter value. For example if data is Base64 encoded, then it will most likely start with `gASV`.
 
-#### WhiteBox Review
+#### Clear-box Review
 
 The following API in Python will be vulnerable to serialization attack. Search code for the pattern below.
 
@@ -56,12 +56,12 @@ print(yaml.load(document))
 
 The following techniques are all good for preventing attacks against deserialization against [Java's Serializable format](https://docs.oracle.com/javase/7/docs/api/java/io/Serializable.html).
 
-Implementation advices:
+Implementation advice:
 
 - In your code, override the `ObjectInputStream#resolveClass()` method to prevent arbitrary classes from being deserialized. This safe behavior can be wrapped in a library like [SerialKiller](https://github.com/ikkisoft/SerialKiller).
 - Use a safe replacement for the generic `readObject()` method as seen here. Note that this addresses "[billion laughs](https://en.wikipedia.org/wiki/Billion_laughs_attack)" type attacks by checking input length and number of objects deserialized.
 
-#### WhiteBox Review
+#### Clear-box Review
 
 Be aware of the following Java API uses for potential serialization vulnerability.
 
@@ -77,7 +77,7 @@ Be aware of the following Java API uses for potential serialization vulnerabilit
 
 6. `Serializable`
 
-#### BlackBox Review
+#### Opaque-box Review
 
 If the captured traffic data includes the following patterns, it may suggest that the data was sent in Java serialization streams:
 
@@ -155,7 +155,7 @@ More complete implementations of this approach have been proposed by various com
 
 As mentioned above, the `java.io.ObjectInputStream` class is used to deserialize objects. It's possible to harden its behavior by subclassing it. However, if you don't own the code or can't wait for a patch, using an agent to weave in hardening to `java.io.ObjectInputStream` is the best solution.
 
-Globally changing `ObjectInputStream` is only safe for block-listing known malicious types, because it's not possible to know for all applications what the expected classes to be deserialized are. Fortunately, there are very few classes needed in the blocklist to be safe from all the known attack vectors, today.
+Globally changing `ObjectInputStream` is only safe for block-listing known malicious types, because it's not possible to know for all applications what the expected classes to be deserialized are. Fortunately, there are very few classes needed in the denylist to be safe from all the known attack vectors, today.
 
 It's inevitable that more "gadget" classes will be discovered that can be abused. However, there is an incredible amount of vulnerable software exposed today, in need of a fix. In some cases, "fixing" the vulnerability may involve re-architecting messaging systems and breaking backwards compatibility as developers move towards not accepting serialized objects.
 
@@ -232,7 +232,7 @@ The following libraries are either no longer maintained or cannot be used safely
 
 ### .Net CSharp
 
-#### WhiteBox Review
+#### Clear-box Review
 
 Search the source code for the following terms:
 
@@ -241,7 +241,7 @@ Search the source code for the following terms:
 
 Look for any serializers where the type is set by a user controlled variable.
 
-#### BlackBox Review
+#### Opaque-box Review
 
 Search for the following base64 encoded content that starts with:
 
@@ -268,7 +268,7 @@ TypeNameHandling = TypeNameHandling.None
 
 If `JavaScriptSerializer` is to be used then do not use it with a `JavaScriptTypeResolver`.
 
-If you must deserialise data streams that define their own type, then restrict the types that are allowed to be deserialized. One should be aware that this is still risky as many native .Net types potentially dangerous in themselves. e.g.
+If you must deserialize data streams that define their own type, then restrict the types that are allowed to be deserialized. One should be aware that this is still risky as many native .Net types potentially dangerous in themselves. e.g.
 
 ```csharp
 System.IO.FileInfo
@@ -276,7 +276,7 @@ System.IO.FileInfo
 
 `FileInfo` objects that reference files actually on the server can when deserialized, change the properties of those files e.g. to read-only, creating a potential denial of service attack.
 
-Even if you have limited the types that can be deserialised remember that some types have properties that are risky. `System.ComponentModel.DataAnnotations.ValidationException`, for example has a property `Value` of type `Object`. if this type is the type allowed for deserialization then an attacker can set the `Value` property to any object type they choose.
+Even if you have limited the types that can be deserialized remember that some types have properties that are risky. `System.ComponentModel.DataAnnotations.ValidationException`, for example has a property `Value` of type `Object`. if this type is the type allowed for deserialization then an attacker can set the `Value` property to any object type they choose.
 
 Attackers should be prevented from steering the type that will be instantiated. If this is possible then even `DataContractSerializer` or `XmlSerializer` can be subverted e.g.
 
@@ -333,7 +333,7 @@ If the application knows before deserialization which messages will need to be p
 ## Mitigation Tools/Libraries
 
 - [Java secure deserialization library](https://github.com/ikkisoft/SerialKiller)
-- [SWAT](https://github.com/cschneider4711/SWAT) (Serial Whitelist Application Trainer)
+- [SWAT - tool for creating allowlists](https://github.com/cschneider4711/SWAT)
 - [NotSoSerial](https://github.com/kantega/notsoserial)
 
 ## Detection Tools
@@ -382,3 +382,5 @@ If the application knows before deserialization which messages will need to be p
     - [James Forshaw - Black Hat USA 2012 - Are You My Type? Breaking .net Sandboxes Through Serialization](https://www.youtube.com/watch?v=Xfbu-pQ1tIc)
     - [Jonathan Birch BlueHat v17 - Dangerous Contents - Securing .Net Deserialization](https://www.youtube.com/watch?v=oxlD8VWWHE8)
     - [Alvaro Muñoz & Oleksandr Mirosh - Friday the 13th: Attacking JSON - AppSecUSA 2017](https://www.youtube.com/watch?v=NqHsaVhlxAQ)
+- Python
+    - [Exploiting Insecure Deserialization bugs found in the Wild (Python Pickles)](https://macrosec.tech/index.php/2021/06/29/exploiting-insecuredeserialization-bugs-found-in-the-wild-python-pickles.)

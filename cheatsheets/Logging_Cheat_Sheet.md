@@ -93,11 +93,25 @@ Where possible, always log:
 - Output validation failures e.g. database record set mismatch, invalid data encoding
 - Authentication successes and failures
 - Authorization (access control) failures
-- Session management failures e.g. cookie session identification value modification
+- Session management failures e.g. cookie session identification value modification or suspicious JWT validation failures
 - Application errors and system events e.g. syntax and runtime errors, connectivity problems, performance issues, third party service error messages, file system errors, file upload virus detection, configuration changes
 - Application and related systems start-ups and shut-downs, and logging initialization (starting, stopping or pausing)
-- Use of higher-risk functionality e.g. network connections, addition or deletion of users, changes to privileges, assigning users to tokens, adding or deleting tokens, use of systems administrative privileges, access by application administrators, all actions by users with administrative privileges, access to payment cardholder data, use of data encrypting keys, key changes, creation and deletion of system-level objects, data import and export including screen-based reports, submission of user-generated content - especially file uploads
+- Use of higher-risk functionality including:
+    - User administration actions such as addition or deletion of users, changes to privileges, assigning users to tokens, adding or deleting tokens
+    - Use of systems administrative privileges or access by application administrators including all actions by those users
+    - Use of default or shared accounts or a "break-glass" account.
+    - Access to sensitive data such as payment cardholder data,
+    - Encryption activities such as use or rotation of cryptographic keys
+    - Creation and deletion of system-level objects
+    - Data import and export including screen-based reports
+    - Submission and processing of user-generated content - especially file uploads
+    - Deserialization failures
+    - Network connections and associated failures such as backend TLS failures (including certificate validation failures), or requests with an unexpected HTTP verb
 - Legal and other opt-ins e.g. permissions for mobile phone capabilities, terms of use, terms & conditions, personal data usage consent, permission to receive marketing communications
+- Suspicious business logic activities such as:
+    - Attempts to perform a set actions out of order/bypass flow control
+    - Actions which don't make sense in the business context
+    - Attempts to exceed limitations for particular actions
 
 Optionally consider if the following events can be logged and whether it is desirable information:
 
@@ -157,7 +171,7 @@ For more information on these, see the "other" related articles listed at the en
 
 **Note A:** The "Interaction identifier" is a method of linking all (relevant) events for a single user interaction (e.g. desktop application form submission, web page request, mobile app button click, web service call). The application knows all these events relate to the same interaction, and this should be recorded instead of losing the information and forcing subsequent correlation techniques to re-construct the separate events. For example, a single SOAP request may have multiple input validation failures and they may span a small range of times. As another example, an output validation failure may occur much later than the input submission for a long-running "saga request" submitted by the application to a database server.
 
-**Note B:** Each organisation should ensure it has a consistent, and documented, approach to classification of events (type, confidence, severity), the syntax of descriptions, and field lengths & data types including the format used for dates/times.
+**Note B:** Each organisation should ensure it has a consistent, and documented, approach to classification of events (type, confidence, severity), the syntax of descriptions, and field lengths and data types including the format used for dates/times.
 
 ### Data to exclude
 
@@ -173,7 +187,7 @@ The following should usually not be recorded directly in the logs, but instead s
 - Sensitive personal data and some forms of personally identifiable information (PII) e.g. health, government identifiers, vulnerable people
 - Authentication passwords
 - Database connection strings
-- Encryption keys and other master secrets
+- Encryption keys and other primary secrets
 - Bank account or payment card holder data
 - Data of a higher security classification than the logging system is allowed to store
 - Commercially-sensitive information
@@ -206,7 +220,7 @@ If your development framework supports suitable logging mechanisms, use or build
 
 Document the interface referencing the organisation-specific event classification and description syntax requirements.
 
-If possible create this log handler as a standard module that can be thoroughly tested, deployed in multiple applications, and added to a list of approved & recommended modules.
+If possible create this log handler as a standard module that can be thoroughly tested, deployed in multiple applications, and added to a list of approved and recommended modules.
 
 - Perform input validation on event data from other trust zones to ensure it is in the correct format (and consider alerting and not logging if there is an input validation failure)
 - Perform sanitization on all event data to prevent log injection attacks e.g. carriage return (CR), line feed (LF) and delimiter characters (and optionally to remove sensitive data)

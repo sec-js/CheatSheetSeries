@@ -29,39 +29,39 @@ When you deploy Kubernetes, you get a cluster. A Kubernetes cluster consists of 
 
 The control plane's components make global decisions about the cluster, as well as detecting and responding to cluster events. It consists of components such as kube-apiserver, etcd, kube-scheduler, kube-controller-manager and cloud-controller-manager.
 
-Component: kube-apiserver
-Description: Exposes the Kubernetes API. The API server is the front end for the Kubernetes control plane.
+**Component:** kube-apiserver  
+**Description:** Exposes the Kubernetes API. The API server is the front end for the Kubernetes control plane.
 
-Component: etcd
-Description: A consistent and highly-available key-value store used as Kubernetes' backing store for all cluster data.
+**Component:** etcd  
+**Description:** A consistent and highly-available key-value store used as Kubernetes' backing store for all cluster data.
 
-Component: kube-scheduler
-Description: Watches for newly created Pods with no assigned node, and selects a node for them to run on.
+**Component:** kube-scheduler  
+**Description:** Watches for newly created Pods with no assigned node, and selects a node for them to run on.
 
-Component: kube-controller-manager
-Description: Runs controller processes. Logically, each controller is a separate process, but to reduce complexity, they are all compiled into a single binary and run in a single process.
+**Component:** kube-controller-manager  
+**Description:** Runs controller processes. Logically, each controller is a separate process, but to reduce complexity, they are all compiled into a single binary and run in a single process.
 
-Component: cloud-controller-manager
-Description: The cloud controller manager lets you link your cluster into your cloud provider's API, and separates out the components that interact with that cloud platform from components that just interact with your cluster.
+**Component:** cloud-controller-manager  
+**Description:** The cloud controller manager lets you link your cluster into your cloud provider's API, and separates out the components that interact with that cloud platform from components that just interact with your cluster.
 
 ### Node Components
 
 Node components run on every node, maintaining running pods and providing the Kubernetes runtime environment. It consists of components such as kubelet, kube-proxy and container runtime.
 
-Component: kubelet
-Description: An agent that runs on each node in the cluster. It makes sure that containers are running in a Pod.
+**Component:** kubelet  
+**Description:** An agent that runs on each node in the cluster. It makes sure that containers are running in a Pod.
 
-Component: kube-proxy
-Description: A network proxy that runs on each node in your cluster, implementing part of the Kubernetes Service concept.
+**Component:** kube-proxy  
+**Description:** A network proxy that runs on each node in your cluster, implementing part of the Kubernetes Service concept.
 
-Container: runtime
-Description: The container runtime is the software that is responsible for running containers |
+**Container:** runtime  
+**Description:** The container runtime is the software that is responsible for running containers |
 
 ## SECTION 1: Securing Kubernetes Hosts
 
 Kubernetes can be deployed in different ways: on bare metal, on-premise, and in the public cloud (a custom Kubernetes build on virtual machines OR use a managed service). Since Kubernetes is designed to be highly portable, customers can easily and migrate their workloads and switch between multiple installations.
 
-Because Kubernetes can be designed to fit a large variety of scenarios, this flexibility is a weakness when it comes to securing Kubernetes clusters. The engineers responsible for deploying the Kubernetes platform must to know about all the potential attack vectors and vulnerabilities for their clusters.
+Because Kubernetes can be designed to fit a large variety of scenarios, this flexibility is a weakness when it comes to securing Kubernetes clusters. The engineers responsible for deploying the Kubernetes platform must know about all the potential attack vectors and vulnerabilities for their clusters.
 
 To harden the underlying hosts for Kubernetes clusters, we recommend that you install the latest version of the operating systems, harden the operating systems, implement necessary patch management and configuration management systems, implement essential firewall rules and undertake specific datacenter-based security measures.
 
@@ -122,9 +122,9 @@ The Kubernetes scheduler will search etcd for pod definitions that do not have a
 
 Administrators should always use strong credentials from the API servers to their etcd server, such as mutual auth via TLS client certificates, and it is often recommended to isolate the etcd servers behind a firewall that only the API servers may access.
 
-#### Limiting acccess to the master etcd instance
+#### Limiting access to the primary etcd instance
 
-Allowing other components within the cluster to access the master etcd instance with read or write access to the full keyspace is equivalent to granting cluster-admin access. Using separate etcd instances for non-master components or using etcd ACLs to restrict read and write access to a subset of the keyspace is strongly recommended.
+Allowing other components within the cluster to access the primary etcd instance with read or write access to the full keyspace is equivalent to granting cluster-admin access. Using separate etcd instances for other components or using etcd ACLs to restrict read and write access to a subset of the keyspace is strongly recommended.
 
 --
 
@@ -134,7 +134,7 @@ It is highly recommended to configure authentication and authorization on the cl
 
 An overview of the default ports used in Kubernetes is provided below. Make sure that your network blocks access to ports, and you should seriously consider limiting access to the Kubernetes API server to trusted networks.
 
-**Master node(s):**
+**Control plane node(s):**
 
 | Protocol | Port Range | Purpose                 |
 | -------- | ---------- | ----------------------- |
@@ -237,7 +237,7 @@ During the build phase, you should secure your Kubernetes container images by bu
 
 A container image (CI) is an immutable, lightweight, standalone, executable package of software that includes everything needed to run an application: code, runtime, system tools, system libraries and settings [<https://www.docker.com/resources/what-container>]. Each image shares the kernel of the operating system present in the host machine.
 
-Your CIs must be built on a approved and secure base image. This base imate must be scanned and monitored at regular intervals to ensure that all CIs are based on a secure and authentic image. Implement strong governance policies that determine how images are built and stored in trusted image registries.
+Your CIs must be built on a approved and secure base image. This base image must be scanned and monitored at regular intervals to ensure that all CIs are based on a secure and authentic image. Implement strong governance policies that determine how images are built and stored in trusted image registries.
 
 --
 
@@ -247,13 +247,13 @@ Ensure your images (and any third-party tools you include) are up-to-date and us
 
 --
 
-### Only use authorized iumages in Your environment
+### Only use authorized images in Your environment
 
 Downloading and running CIs from unknown sources is very dangerous. Make sure that only images adhering to the organization’s policy are allowed to run, or else the organization is open to risk of running vulnerable or even malicious containers.
 
 --
 
-### Use A CI Pipeline To Control and Identify Vunlerabilities
+### Use A CI Pipeline To Control and Identify Vulnerabilities
 
 The Kubernetes container registry serves as a central repository of all container images in the system. Depending on your needs, you can utilize a public repository or have a private repository as the container registry. We recommend that you store your approved images in a private registry and only push approved images to these registries, which automatically reduces the number of potential images that enter your pipeline down to a fraction of the hundreds of thousands of publicly available images.
 
@@ -344,31 +344,9 @@ Learn more about webhook at <https://kubernetes.io/docs/reference/access-authn-a
 
 ### Implement continuous security vulnerability scanning
 
-Since new vulnerabilities are always being discovered, you may not always know if your containers may have recently-disclosed vulnerabilities (CVEs) or outdatd packages. To maintain a strong security posture, do regular production scanning of first-party containers (applications you have built and previously scanned) as well as third-party containers (swhich are ourced from trusted repository and vendors).
+Since new vulnerabilities are always being discovered, you may not always know if your containers may have recently-disclosed vulnerabilities (CVEs) or outdated packages. To maintain a strong security posture, do regular production scanning of first-party containers (applications you have built and previously scanned) as well as third-party containers (which are sourced from trusted repository and vendors).
 
 Open Source projects such as [ThreatMapper](https://github.com/deepfence/ThreatMapper) can assist in identifying and prioritizing vulnerabilities.
-
---
-
-### Continuously assess the privileges used by containers
-
-We strongly recommend that all your containers should so they should adhere to the principle of least privilege, since your security risk is heavily influenced by the capabilities, role bindings, and privileges given to containers. Each container should only have the minimum privileges and capabilities that allows it to perform its intended function.
-
-**Use Pod security policies to control the security-related attributes of pods, which includes container privilege levels.**
-
-All security policies should include the following conditions:
-
-- Application processes do not run as root.
-- Privilege escalation is not alllowed.
-- The root filesystem is read-only.
-- The default (masked) /proc filesystem mount is used.
-- The host network or process space should NOT be used - using "hostNetwork:true" will cause NetworkPolicies to be ignored since the Pod will use its host network.
-- Unused and unnecessary Linux capabilities are eliminated.
-- Use SELinux options for more fine-grained process controls.
-- Give each application its own Kubernetes Service Account.
-- If a container does not need to access the Kubernetes API, do not let it mount the service account credentials.
-
-For more information on Pod security policies, refer to the documentation at <https://kubernetes.io/docs/concepts/policy/pod-security-policy/>.
 
 --
 
@@ -380,16 +358,16 @@ When you are configuring the security context for your pods, only grant the priv
 
 Security Context Settings:
 
-1. SecurityContext->runAsNonRoot
+1. SecurityContext->**runAsNonRoot**  
    Description: Indicates that containers should run as non-root user.
 
-2. Security Context Setting: SecurityContext->Capabilities
+2. SecurityContext->**Capabilities**  
    Description: Controls the Linux capabilities assigned to the container.
 
-3. Security Context Setting: SecurityContext->readOnlyRootFilesystem
+3. SecurityContext->**readOnlyRootFilesystem**  
    Description: Controls whether a container will be able to write into the root filesystem.
 
-4. Security Conext Setting: PodSecurityContext->runAsNonRoot
+4. PodSecurityContext->**runAsNonRoot**  
    Description: Prevents running a container with 'root' user as part of the pod |
 
 #### Security context example: A pod definition that includes security context parameters
@@ -413,6 +391,62 @@ spec:
 
 For more information on security context for Pods, refer to the documentation at <https://kubernetes.io/docs/tasks/configure-pod-container/security-context>
 
+--
+
+### Continuously assess the privileges used by containers
+
+We strongly recommend that all your containers should adhere to the principle of least privilege, since your security risk is heavily influenced by the capabilities, role bindings, and privileges given to containers. Each container should only have the minimum privileges and capabilities that allows it to perform its intended function.
+
+#### Utilize Pod Security Standards and the Built-in Pod Security Admission Controller to enforce container privilege levels
+
+Pod Security Standards combined with the Pod Security Admission Controller allow cluster administrators to enforce requirements on a pods `securityContext` fields. Three Pod Security Standard profiles exist:
+
+- **Privileged**: Unrestricted, allows for known privilege escalations. Intended for use with system and infrastructure level workloads that require privilege to operate properly. All securityContext settings are permitted
+- **Baseline**: Minimally restrictive policy designed for common containerized workloads while preventing known privilege escalations. Targeted at developers and operators of non-critical applications. The most dangerous securityContext settings, such as securityContext.privileged, hostPID, hostPath, hostIPC, are not permitted.
+- **Restricted**: The most restrictive policy, designed to enforce current Pod hardening practices at the expense of some compatibility. Intended for security critical workloads or untrusted users. Restricted includes all of the enforcements from the baseline policy, in addition to much more restrictive requirements, such as requiring the dropping of all capabilities, enforcing runAsNotRoot, and more.
+
+Each of the profiles have defined settings baselines that can be found in more detail [here](https://kubernetes.io/docs/concepts/security/pod-security-standards/#profile-details).
+
+The Pod Security Admission Controller allows you to enforce, audit, or warn upon the violation of a defined policy. `audit` and `warn` modes can be utilized to determine if a particular Pod Security Standard would normally prevent the deployment of a pod when set to `enforce` mode.
+
+Below is an example of a namespace that would only allow Pods to be deployed that conform to the restricted Pod Security Standard:
+
+```yaml
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: policy-test
+  labels:    
+    pod-security.kubernetes.io/enforce: restricted
+    pod-security.kubernetes.io/audit: restricted
+    pod-security.kubernetes.io/warn: restricted
+```
+
+Cluster administrators should properly organize and and enforce policy on cluster namespaces, only permitting the privileged policy on namespaces where it is absolutely required, such as for critical cluster services that require access to the underlying host. Namespaces should be set to the lowest Pod Security Policy that can be enforced and supports their risk level.
+
+If more granular policy enforcement is required beyond the three profiles (Privileged, Baseline, Restricted), Third party admission controllers like OPA Gatekeeper or Kyverno, or built-in Validating Admission Policy can be utilized.
+
+#### Use Pod security policies to control the security-related attributes of pods, which includes container privilege levels
+
+> **Warning**  
+> Kubernetes deprecated Pod Security Policies in favor of Pod Security Standards and the Pod Security Admission Controller, and was removed from Kubernetes in v1.25. Consider using Pod Security Standards and the Pod Security Admission Controller instead.
+
+All security policies should include the following conditions:
+
+- Application processes do not run as root.
+- Privilege escalation is not allowed.
+- The root filesystem is read-only.
+- The default (masked) /proc filesystem mount is used.
+- The host network or process space should NOT be used - using `hostNetwork: true` will cause NetworkPolicies to be ignored since the Pod will use its host network.
+- Unused and unnecessary Linux capabilities are eliminated.
+- Use SELinux options for more fine-grained process controls.
+- Give each application its own Kubernetes Service Account.
+- If a container does not need to access the Kubernetes API, do not let it mount the service account credentials.
+
+For more information on Pod security policies, refer to the documentation at <https://kubernetes.io/docs/concepts/policy/pod-security-policy/>.
+
+--
+
 ### Providing extra security with a service mesh
 
 A service mesh is an infrastructure layer that can handle communications between services in applications quickly, securely and reliably, which can help reduce the complexity of managing microservices and deployments. They provide a uniform way to secure, connect and monitor microservices. and a service mesh is great at resolving operational challenges and issues when running those containers and microservices.
@@ -431,7 +465,7 @@ It provides security features which quickly identify any compromising traffic th
 
 3. Ability to secure microservices with mTLS
 
-Since securing microservices is hard, there are many tools that address microservices security. Howver, the service mesh is the most elegant solution for addressing encryption of on-the-wire traffic within the network.
+Since securing microservices is hard, there are many tools that address microservices security. However, the service mesh is the most elegant solution for addressing encryption of on-the-wire traffic within the network.
 
 It provides defense with mutual TLS (mTLS) encryption of the traffic between your services, and the mesh can automatically encrypt and decrypt requests and responses, which removes that burden from application developers. The mesh can also improve performance by prioritizing the reuse of existing, persistent connections, which reduces the need for the computationally expensive creation of new ones. With service mesh, you can secure traffic over the wire and also make strong identity-based authentication and authorizations for each microservice.
 
@@ -447,7 +481,7 @@ It can help security and platform teams set the right macro controls to enforce 
 
 6. Ability to manage RBAC
 
-A service mesh can help defenders implement a strong Role Based Access Control (RBAC) system, which is arguably one of the most critical requirements in large engineering organizations. Even a secure system can be easily circumvented by overprivileged users or employees, and an RBAC system can:
+A service mesh can help defenders implement a strong Role Based Access Control (RBAC) system, which is arguably one of the most critical requirements in large engineering organizations. Even a secure system can be easily circumvented by over-privileged users or employees, and an RBAC system can:
 
 - Restrict privileged users to least privileges necessary to perform job responsibilities
 - Ensure that access to systems are set to “deny all” by default
@@ -465,7 +499,7 @@ When proxies, sidecars and other components are introduced an already sophistica
 
 If a mesh like Istio is added on top of an orchestrator such as Kubernetes, operators need to become experts in both technologies.
 
-- Insfrastrucure Can Be Slowed
+- Infrastructure Can Be Slowed
 
 Because a service mesh is an invasive and intricate technology, it can significantly slow down an architecture.
 
@@ -475,9 +509,9 @@ Since service meshes are invasive, they force developers and operators to adapt 
 
 ### Implementing centralized policy management
 
-There are numerous projects which are able to provide centralized policy management for a Kubernetes cluster, including the [Open Policy Agent](https://www.openpolicyagent.org/) (OPA) project, [Kyverno](https://kyverno.io/), or the [Validating Admission Policy](https://kubernetes.io/docs/reference/access-authn-authz/validating-admission-policy/) (a built-in, yet alpha (aka off by default) feature as of 1.26). In order to provide an example with some depth, we will focus on OPA in this cheat sheet.
+There are numerous projects which are able to provide centralized policy management for a Kubernetes cluster, including the [Open Policy Agent](https://www.openpolicyagent.org/) (OPA) project, [Kyverno](https://kyverno.io/), or the [Validating Admission Policy](https://kubernetes.io/docs/reference/access-authn-authz/validating-admission-policy/) (a built-in feature released to general availability in 1.30). In order to provide an example with some depth, we will focus on OPA in this cheat sheet.
 
-OPA was started in 2016 to unify policy enforcement across different technologies and systems, and it can be used to enforce policies on a platform like Kubernetes. Currently, OPA is part of CNCF as an incubating project. It can create a unified method of enforcing security policy in the stack. While developers can can impose fine-grained control over the cluster with RBAC and Pod security policies, these technologies only apply to the cluster but not outside the cluster.
+OPA was started in 2016 to unify policy enforcement across different technologies and systems, and it can be used to enforce policies on a platform like Kubernetes. Currently, OPA is part of CNCF as an incubating project. It can create a unified method of enforcing security policy in the stack. While developers can impose fine-grained control over the cluster with RBAC and Pod security policies, these technologies only apply to the cluster but not outside the cluster.
 
 Since OPA is a general-purpose, domain-agnostic policy enforcement tool that is not based on any other project, the policy queries and decisions do not follow a specific format. Thus it can be integrated with APIs, the Linux SSH daemon, an object store like Ceph, and you can use any valid JSON data as request attributes as long as it provides the required data. OPA allows you to choose what is input and what is output--for example, you can opt to have OPA return a True or False JSON object, a number, a string, or even a complex data object.
 
@@ -507,9 +541,9 @@ It is important to define resource quotas for containers in Kubernetes, since al
 
 Additionally, the OPA can limit how many pods, services, or volumes exist in each namespace, and it can restrict the maximum or minimum size of some of the resources above. The resource quotas provide default limits when none are specified and prevent users from requesting unreasonably high or low values for commonly reserved resources like memory.
 
-Below is an example of definiing namespace resource quota in the appropriate yaml. It limits the number of pods in the namespace to 4, limits their CPU requests between 1 and 2 and memory requests between 1GB to 2GB.
+Below is an example of defining namespace resource quota in the appropriate yaml. It limits the number of pods in the namespace to 4, limits their CPU requests between 1 and 2 and memory requests between 1GB to 2GB.
 
-compute-resources.yaml:
+`compute-resources.yaml`:
 
 ```yaml
 apiVersion: v1
@@ -535,7 +569,7 @@ For more information on configuring resource quotas, refer to the Kubernetes doc
 
 ### Use Kubernetes network policies to control traffic between pods and clusters
 
-If your cluster runs different applications, a compromised application could attack other neighboring applications. This scenario might happen becausse Kubernetes allows every pod to contact every other pod by default. If ingress from an external network endpoint is allowed, the pod will be able to send its traffic to an endpoint outside the cluster.
+If your cluster runs different applications, a compromised application could attack other neighboring applications. This scenario might happen because Kubernetes allows every pod to contact every other pod by default. If ingress from an external network endpoint is allowed, the pod will be able to send its traffic to an endpoint outside the cluster.
 
 It is strongly recommended that developers implement network segmentation, because it is a key security control that ensures that containers can only communicate with other approved containers and prevents attackers from pursuing lateral movement across containers. However, applying network segmentation in the cloud is challenging because of the “dynamic” nature of container network identities (IPs).
 
@@ -611,24 +645,15 @@ First, monitor the most security-relevant container activities, including:
 - Network communications among containerized services
 - Network communications between containerized services and external clients and servers
 
-Detecting anomalies by oserving container behavior is generally easier in containers than in virtual machines because of the declarative nature of containers and Kubernetes. These attributes allow easier introspection into what you have deployed and its expected activity.
+Detecting anomalies by observing container behavior is generally easier in containers than in virtual machines because of the declarative nature of containers and Kubernetes. These attributes allow easier introspection into what you have deployed and its expected activity.
 
-### Use Pod Security Policies to prevent risky containers/Pods from being used
+### Use Pod Security Admission to prevent risky containers/Pods from being deployed
 
-We strongly recommend that you use PodSecurityPolicy, which is a cluster-level resources available in Kubernetes (via kubectl). The PodSecurityPolicy admission controller must be enabled to use it, and given the nature of admission controllers, you must authorize at least one policy - otherwise it will not allow pods to be created in the cluster.
+The previously recommended [Pod Security Policy](https://kubernetes.io/docs/concepts/policy/pod-security-policy/) is deprecated and replaced by [Pod Security Admission](https://kubernetes.io/docs/concepts/security/pod-security-admission/), a new feature that allows you to enforce security policies on pods in a Kubernetes cluster.
 
-Pod Security Policies address several critical security use cases such as:
+It is recommended to use the `baseline` level as a minimum security requirement for all pods to ensure a standard level of security across the cluster. However, clusters should strive to apply the `restricted` level which follows pod hardening best practices.
 
-- Prevents containers from running with a privileged flag - this flag overwrites any rules you set using CAP DROP or CAP ADD and such a container will have most of the capabilities available to the underlying host.
-- Prevents the host PID/IPC namespace, networking, and ports from being shared - this step ensures proper isolation between Docker containers and the underlying host
-- Limits the use of volume types - writable hostPath directory volumes, for example, allow containers to write to the filesystem in a manner that allows them to traverse the host filesystem outside the pathPrefix, so readOnly: true must be used
-- Puts limits on host filesystem use
-- Enforcess read only for root file system via the ReadOnlyRootFilesystem
-- Prevents privilege escalation to root privileges
-- Rejects containers with root privileges
-- Restricts Linux capabilities to avbare minimum in adherence with least privilege principles
-
-For more information on Pod security policies, refer to the documentation at <https://kubernetes.io/docs/concepts/policy/pod-security-policy/>.
+For more information on configuring Pod Security Admission, refer to the documentation at <https://kubernetes.io/docs/tasks/configure-pod-container/enforce-standards-admission-controller/>.
 
 ### Container Runtime Security
 
@@ -653,9 +678,9 @@ When container runtimes are permitted to make direct calls to the host kernel, t
 
 Because Linux kernel automatically loads kernel modules from disk if needed in certain circumstances, such as when a piece of hardware is attached or a filesystem is mounted, this can be a significant attack surface. Of particular relevance to Kubernetes, even unprivileged processes can cause certain network-protocol-related kernel modules to be loaded, just by creating a socket of the appropriate type. This situation may allow attackers to exploit a security hole in kernel modules that the administrator assumed was not in use.
 
-To prevent specific modules from being automatically loaded, you can uninstall them from the node, or add rules to block them. On most Linux distributions, you can do that by creating a file such as /etc/modprobe.d/kubernetes-blacklist.conf with contents like:
+To prevent specific modules from being automatically loaded, you can uninstall them from the node, or add rules to block them. On most Linux distributions, you can do that by creating a file such as `/etc/modprobe.d/kubernetes-blacklist.conf` with contents like:
 
-```
+```conf
 # DCCP is unlikely to be needed, has had multiple serious
 # vulnerabilities, and is not well-maintained.
 blacklist dccp
@@ -758,12 +783,12 @@ Manifest is as follows.
 apiVersion: v1
 kind: Pod
 metadata:
-name: example
+  name: example
 spec:
-containers:
-  - name: example
-image: busybox
-args: [/bin/sh, -c, 'while true; do echo $(date); sleep 1; done']
+  containers:
+    - name: example
+      image: busybox
+      args: [/bin/sh, -c, 'while true; do echo $(date); sleep 1; done']
 ```
 
 To apply the manifest, run:
@@ -832,7 +857,7 @@ journalctl -u
 
 ##### Cluster logging
 
-In the Kubernetes cluster itself, there is a long list of cluster components that can be logged as well as additional data types that can be used (events, audit logs). Together, these different types of data can give you visibility into how Kubernetes is performing as a ystem.
+In the Kubernetes cluster itself, there is a long list of cluster components that can be logged as well as additional data types that can be used (events, audit logs). Together, these different types of data can give you visibility into how Kubernetes is performing as a system.
 
 Some of these components run in a container, and some of them run on the operating system level (in most cases, a systemd service). The systemd services write to journald, and components running in containers write logs to the /var/log directory, unless the container engine has been configured to stream logs differently.
 
@@ -842,7 +867,7 @@ Kubernetes events can indicate any Kubernetes resource state changes and errors,
 
 The following command returns all events within a specific namespace:
 
-```
+```bash
 kubectl get events -n <namespace>
 
 NAMESPACE LAST SEEN TYPE   REASON OBJECT MESSAGE
@@ -856,7 +881,7 @@ kube-system     8m23s               Normal    SuccessfulCreate          replicas
 
 The following command will show the latest events for this specific Kubernetes resource:
 
-```
+```bash
 kubectl describe pod <pod-name>
 
 Events:
@@ -890,11 +915,11 @@ For example, a deployment containing a vulnerability with severity score of 7 or
 
 ## References
 
-Master documentation - <https://kubernetes.io>
+Control plane documentation - <https://kubernetes.io>
 
 1. Kubernetes Security Best Practices everyone must follow - <https://www.cncf.io/blog/2019/01/14/9-kubernetes-security-best-practices-everyone-must-follow>
-2. Securing a Cluster - <https://kubernetes.io/blog/2016/08/security-best-practices-kubernetes-deployment>
-3. Security Best Practices for Kubernetes Deployment - <https://kubernetes.io/docs/tasks/administer-cluster/securing-a-cluster>
+2. Securing a Cluster - <https://kubernetes.io/docs/tasks/administer-cluster/securing-a-cluster>
+3. Security Best Practices for Kubernetes Deployment - <https://kubernetes.io/blog/2016/08/security-best-practices-kubernetes-deployment>
 4. Kubernetes Security Best Practices - <https://phoenixnap.com/kb/kubernetes-security-best-practices>
 5. Kubernetes Security 101: Risks and 29 Best Practices - <https://www.stackrox.com/post/2020/05/kubernetes-security-101>
 6. 15 Kubernetes security best practice to secure your cluster - <https://www.mobilise.cloud/15-kubernetes-security-best-practice-to-secure-your-cluster>

@@ -12,18 +12,18 @@ Sample code used in tips is located [here](https://github.com/righettod/injectio
 
 *Consider anyone who can send untrusted data to the system, including external users, internal users, and administrators.*
 
-### General advices to prevent Injection
+### General advice to prevent Injection
 
 The following point can be applied, in a general way, to prevent *Injection* issue:
 
-1. Apply **Input Validation** (using "allow list" approach) combined with **Output Sanitizing+Escaping** on user input/output.
+1. Apply **Input Validation** (using allowlist approach) combined with **Output Sanitizing+Escaping** on user input/output.
 2. If you need to interact with system, try to use API features provided by your technology stack (Java / .Net / PHP...) instead of building command.
 
-Additional advices are provided on this [cheatsheet](Input_Validation_Cheat_Sheet.md).
+Additional advice is provided on this [cheatsheet](Input_Validation_Cheat_Sheet.md).
 
 ## Specific Injection types
 
-*Examples in this section will be provided in Java technology (see Maven project associated) but advices are applicable to others technologies like .Net / PHP / Ruby / Python...*
+*Examples in this section will be provided in Java technology (see Maven project associated) but advice is applicable to others technologies like .Net / PHP / Ruby / Python...*
 
 ### SQL
 
@@ -67,7 +67,7 @@ try (Connection con = DriverManager.getConnection(jdbcUrl)) {
         pStatement.setInt(4, 11);
         insertedRecordCount = pStatement.executeUpdate();
     }
- 
+
    /* Sample C: Update data using Prepared Statement*/
     query = "update color set blue = ? where friendly_name = ?";
     int updatedRecordCount;
@@ -239,14 +239,14 @@ Injection of this type occur when the application uses untrusted user input to b
 
 #### How to prevent
 
-Either apply strict input validation ("allow list" approach) or use output sanitizing+escaping if input validation is not possible (combine both every time is possible).
+Either apply strict input validation (allowlist approach) or use output sanitizing+escaping if input validation is not possible (combine both every time is possible).
 
 #### Example
 
 ``` java
 /*
 INPUT WAY: Receive data from user
-Here it's recommended to use strict input validation using "allow list" approach.
+Here it's recommended to use strict input validation using allowlist approach.
 In fact, you ensure that only allowed characters are part of the input received.
 */
 
@@ -345,7 +345,7 @@ for (String specChar: specialCharsList) {
         return false;
     }
 }
-   
+
 //Add also a check on input max size
 if (!userInput.length() <= 50)
 {
@@ -391,37 +391,49 @@ try(MongoClient mongoClient = new MongoClient()){
 
 To prevent an attacker from writing malicious content into the application log, apply defenses such as:
 
-- Filter the user input used to prevent injection of **C**arriage **R**eturn (CR) or **L**ine **F**eed (LF) characters.
+- Use structured log formats, such as JSON, instead of unstructured text formats.
+  Unstructured formats are susceptible to **C**arriage **R**eturn (CR) and **L**ine **F**eed (LF) injection (see [CWE-93](https://cwe.mitre.org/data/definitions/93.html)).
 - Limit the size of the user input value used to create the log message.
 - Make sure [all XSS defenses](Cross_Site_Scripting_Prevention_Cheat_Sheet.md) are applied when viewing log files in a web browser.
 
-#### Example using Log4j2
+#### Example using Log4j Core 2
 
-Configuration of a logging policy to roll on 10 files of 5MB each, and encode/limit the log message using the [Pattern *encode{}{CRLF}*](https://logging.apache.org/log4j/2.x/manual/layouts.html#PatternLayout\%7CLog4j2), introduced in [Log4j2 v2.10.0](https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api), and the *-500m* message size limit.:
+The recommended logging policy for a production environment is sending logs to a network socket using the structured
+[JSON Template Layout](https://logging.apache.org/log4j/2.x/manual/json-template-layout.html)
+introduced in
+[Log4j 2.14.0](https://logging.apache.org/log4j/2.x/release-notes.html#release-notes-2-14-0)
+and limit the size of strings to 500 bytes using the
+[`maxStringLength` configuration attribute](https://logging.apache.org/log4j/2.x/manual/json-template-layout.html#plugin-attr-maxStringLength):
 
-``` xml
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
-<Configuration status="error" name="SecureLoggingPolicy">
-    <Appenders>
-        <RollingFile name="RollingFile" fileName="App.log" filePattern="App-%i.log" ignoreExceptions="false">
-            <PatternLayout>
-                <!-- Encode any CRLF chars in the message and limit its
-                     maximum size to 500 characters -->
-                <Pattern>%d{ISO8601} %-5p - %encode{ %.-500m }{CRLF}%n</Pattern>
-            </PatternLayout>
-            <Policies>
-                <SizeBasedTriggeringPolicy size="5MB"/>
-            </Policies>
-            <DefaultRolloverStrategy max="10"/>
-        </RollingFile>
-    </Appenders>
-    <Loggers>
-        <Root level="debug">
-            <AppenderRef ref="RollingFile"/>
-        </Root>
-    </Loggers>
+<Configuration xmlns="https://logging.apache.org/xml/ns"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:schemaLocation="
+                   https://logging.apache.org/xml/ns
+                   https://logging.apache.org/xml/ns/log4j-config-2.xsd">
+  <Appenders>
+    <Socket name="SOCKET"
+            host="localhost"
+            port="12345">
+      <!-- Limit the size of any string field in the produced JSON document to 500 bytes -->
+      <JsonTemplateLayout maxStringLength="500"
+                          nullEventDelimiterEnabled="true"/>
+    </Socket>
+  </Appenders>
+  <Loggers>
+    <Root level="DEBUG">
+      <AppenderRef ref="SOCKET"/>
+    </Root>
+  </Loggers>
 </Configuration>
 ```
+
+See
+[Integration with service-oriented architectures](https://logging.apache.org/log4j/2.x/soa.html)
+on
+[Log4j website](https://logging.apache.org/log4j/2.x/index.html)
+for more tips.
 
 Usage of the logger at code level:
 
@@ -429,45 +441,60 @@ Usage of the logger at code level:
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 ...
-// No special action needed because security actions are
-// performed at the logging policy level
-Logger logger = LogManager.getLogger(MyClass.class);
-logger.info(logMessage);
+// Most common way to declare a logger
+private static final LOGGER = LogManager.getLogger();
+// GOOD!
+//
+// Use parameterized logging to add user data to a message
+// The pattern should be a compile-time constant
+logger.warn("Login failed for user {}.", username);
+// BAD!
+//
+// Don't mix string concatenation and parameters
+// If `username` contains `{}`, the exception will leak into the message
+logger.warn("Failure for user " + username + " and role {}.", role, ex);
 ...
 ```
 
-#### Example using Logback with the OWASP Security Logging library
+See
+[Log4j API Best Practices](https://logging.apache.org/log4j/2.x/manual/api.html#best-practice)
+for more information.
 
-Configuration of a logging policy to roll on 10 files of 5MB each, and encode/limit the log message using the [CRLFConverter](https://github.com/augustd/owasp-security-logging/wiki/Log-Forging), provided by the **no longer active** [OWASP Security Logging Project](https://github.com/augustd/owasp-security-logging/wiki), and the *-500msg* message size limit:
+#### Example using Logback
+
+The recommended logging policy for a production environment is using the structured
+[JsonEncoder](https://logback.qos.ch/manual/encoders.html#JsonEncoder)
+introduced in
+[Logback 1.3.8](https://logback.qos.ch/news.html#1.3.8).
+In the example below, Logback is configured to roll on 10 log files of 5 MiB each:
 
 ``` xml
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration>
 <configuration>
-    <!-- Define the CRLFConverter -->
-    <conversionRule conversionWord="crlf" converterClass="org.owasp.security.logging.mask.CRLFConverter" />
-    <appender name="RollingFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>App.log</file>
-        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
-            <fileNamePattern>App-%i.log</fileNamePattern>
-            <minIndex>1</minIndex>
-            <maxIndex>10</maxIndex>
-        </rollingPolicy>
-        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
-            <maxFileSize>5MB</maxFileSize>
-        </triggeringPolicy>
-        <encoder>
-            <!-- Encode any CRLF chars in the message and limit
-                 its maximum size to 500 characters -->
-            <pattern>%relative [%thread] %-5level %logger{35} - %crlf(%.-500msg) %n</pattern>
-        </encoder>
-    </appender>
-    <root level="debug">
-        <appender-ref ref="RollingFile" />
-    </root>
+  <import class="ch.qos.logback.classic.encoder.JsonEncoder"/>
+  <import class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy"/>
+  <import class="ch.qos.logback.core.rolling.RollingFileAppender"/>
+  <import class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy"/>
+
+  <appender name="RollingFile" class="RollingFileAppender">
+    <file>app.log</file>
+    <rollingPolicy class="FixedWindowRollingPolicy">
+      <fileNamePattern>app-%i.log</fileNamePattern>
+      <minIndex>1</minIndex>
+      <maxIndex>10</maxIndex>
+    </rollingPolicy>
+    <triggeringPolicy class="SizeBasedTriggeringPolicy">
+      <maxFileSize>5MB</maxFileSize>
+    </triggeringPolicy>
+    <encoder class="JsonEncoder"/>
+  </appender>
+
+  <root level="DEBUG">
+    <appender-ref ref="SOCKET"/>
+  </root>
 </configuration>
 ```
-
-You also have to add the [OWASP Security Logging](https://github.com/augustd/owasp-security-logging/wiki/Usage-with-Logback) dependency to your project.
 
 Usage of the logger at code level:
 
@@ -475,31 +502,29 @@ Usage of the logger at code level:
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 ...
-// No special action needed because security actions
-// are performed at the logging policy level
+// Most common way to declare a logger
 Logger logger = LoggerFactory.getLogger(MyClass.class);
-logger.info(logMessage);
+// GOOD!
+//
+// Use parameterized logging to add user data to a message
+// The pattern should be a compile-time constant
+logger.warn("Login failed for user {}.", username);
+// BAD!
+//
+// Don't mix string concatenation and parameters
+// If `username` contains `{}`, the exception will leak into the message
+logger.warn("Failure for user " + username + " and role {}.", role, ex);
 ...
 ```
 
 #### References
 
-- [PatternLayout](https://logging.apache.org/log4j/2.x/manual/layouts.html#PatternLayout) (See the `encode{}{CRLF}` function)
-
-```text
-Note that the default Log4j2 encode{} encoder is HTML, which does NOT prevent log injection.
-
-It prevents XSS attacks against viewing logs using a browser.
-
-OWASP recommends defending against XSS attacks in such situations in the log viewer application itself,
-not by preencoding all the log messages with HTML encoding as such log entries may be used/viewed in many
-other log viewing/analysis tools that don't expect the log data to be pre-HTML encoded.
-```
-
-- [LOG4J Configuration](https://logging.apache.org/log4j/2.x/manual/configuration.html)
-- [LOG4J Appender](https://logging.apache.org/log4j/2.x/manual/appenders.html)
-- [Log Forging](https://github.com/javabeanz/owasp-security-logging/wiki/Log-Forging) - See the Logback section about the `CRLFConverter` this library provides.
-- [Usage of OWASP Security Logging with Logback](https://github.com/javabeanz/owasp-security-logging/wiki/Usage-with-Logback)
+- [Log4j Core Configuration File](https://logging.apache.org/log4j/2.x/manual/configuration.html)
+- [Log4j JSON Template Layout](https://logging.apache.org/log4j/2.x/manual/json-template-layout.html)
+- [Log4j Appenders](https://logging.apache.org/log4j/2.x/manual/appenders.html)
+- [Logback Configuration File](https://logback.qos.ch/manual/configuration.html)
+- [Logback JsonEncoder](https://logback.qos.ch/manual/encoders.html#JsonEncoder)
+- [Logback Appenders](https://logback.qos.ch/manual/appenders.html)
 
 ## Cryptography
 
@@ -514,7 +539,7 @@ other log viewing/analysis tools that don't expect the log data to be pre-HTML e
 
 ### Encryption for storage
 
-Follow the algorithm guidance in the [OWASP Cryptographic Storage Cheat Sheet](Cryptographic_Storage_Cheat_Sheet.m#algorithms).
+Follow the algorithm guidance in the [OWASP Cryptographic Storage Cheat Sheet](Cryptographic_Storage_Cheat_Sheet.md#algorithms).
 
 #### Symmetric example using Google Tink
 
@@ -547,15 +572,15 @@ public class App {
     // https://github.com/tink-crypto/tink-java/tree/main/examples/aead
 
     public static void main(String[] args) throws Exception {
-        
+
         // Key securely generated using:
         // tinkey create-keyset --key-template AES128_GCM --out-format JSON --out aead_test_keyset.json
-          
-          
-          
+
+
+
         // Register all AEAD key types with the Tink runtime.
         AeadConfig.register();
-      
+
         // Read the keyset into a KeysetHandle.
         KeysetHandle handle =
         TinkJsonProtoKeysetFormat.parseKeyset(
@@ -754,7 +779,7 @@ class App {
 
         // Alice encrypts a message to send to Bob
         String plaintext = "Hello, Bob!";
-        
+
         // Add some relevant context about the encrypted data that should be verified
         // on decryption
         String metadata = "Sender: alicesmith@example.com";
@@ -831,7 +856,7 @@ class HybridSimple {
 
 If you absolutely cannot use a separate library, it is still possible to use the built JCA/JCE classes but it is strongly recommended to have a cryptography expert review the full design and code, as even the most trivial error can severely weaken your encryption.
 
-The following code snippet shows an example of using Eliptic Curve/Diffie Helman (ECDH) together with AES-GCM to perform encryption/decryption of data between two different sides without the need the transfer the symmetric key between the two sides. Instead, the sides exchange public keys and can then use ECDH to generate a shared secret which can be used for the symmetric encryption.
+The following code snippet shows an example of using Elliptic Curve/Diffie Helman (ECDH) together with AES-GCM to perform encryption/decryption of data between two different sides without the need the transfer the symmetric key between the two sides. Instead, the sides exchange public keys and can then use ECDH to generate a shared secret which can be used for the symmetric encryption.
 
 Note that this code sample relies on the AesGcmSimple class from the [previous section](#symmetric-example-using-built-in-jcajce-classes).
 
@@ -868,17 +893,17 @@ class Main {
         var bob = new ECDHSimple();
         Key bobPublicKey = bob.getPublicKey();
 
-        // This keypair generation should be reperformed every so often in order to 
+        // This keypair generation should be reperformed every so often in order to
         // obtain a new shared secret to avoid a long lived shared secret.
 
         // Alice encrypts a message to send to Bob
         String plaintext = "Hello"; //, Bob!";
         System.out.println("Secret being sent from Alice to Bob: " + plaintext);
-        
+
         var retPair = alice.encrypt(bobPublicKey, plaintext);
         var nonce = retPair.getKey();
         var cipherText = retPair.getValue();
-        
+
         System.out.println("Both cipherText and nonce being sent from Alice to Bob: " + Base64.getEncoder().encodeToString(cipherText) + " " + Base64.getEncoder().encodeToString(nonce));
 
 
@@ -890,7 +915,7 @@ class Main {
         // Bob encrypts a message to send to Alice
         String plaintext2 = "Hello"; //, Alice!";
         System.out.println("Secret being sent from Bob to Alice: " + plaintext2);
-        
+
         var retPair2 = bob.encrypt(alicePublicKey, plaintext2);
         var nonce2 = retPair2.getKey();
         var cipherText2 = retPair2.getValue();
@@ -941,8 +966,8 @@ class ECDHSimple {
     }
 
     private AesKeyNonce generateAESParams(Key partnerPublicKey, byte[] nonce) throws Exception {
-    
-        // Derive the secret based on this side's private key and the other side's public key 
+
+        // Derive the secret based on this side's private key and the other side's public key
         KeyAgreement keyAgreement = KeyAgreement.getInstance("ECDH");
         keyAgreement.init(keyPair.getPrivate());
         keyAgreement.doPhase(partnerPublicKey, true);
@@ -953,15 +978,15 @@ class ECDHSimple {
         // Copy first 32 bytes as the key
         byte[] key = Arrays.copyOfRange(secret, 0, (AesGcmSimple.KEY_SIZE / 8));
         aesKeyNonce.Key = new SecretKeySpec(key, 0, key.length, "AES");
-        
+
         // Passed in nonce will be used.
         aesKeyNonce.Nonce = nonce;
         return aesKeyNonce;
-        
+
     }
 
     private AesKeyNonce generateAESParams(Key partnerPublicKey) throws Exception {
-    
+
         // Nonce of 12 bytes / 96 bits and this size should always be used.
         // It is critical for AES-GCM that a unique nonce is used for every cryptographic operation.
         // Therefore this is not generated from the shared secret

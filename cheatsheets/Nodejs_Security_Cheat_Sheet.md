@@ -113,16 +113,16 @@ func1("input1")
 And using async/await:
 
 ```JavaScript
-function async func1(name) {
+async function func1(name) {
   // operations that takes a bit of time and then resolves the promise
 }
-function async func2(name) {
+async function func2(name) {
   // operations that takes a bit of time and then resolves the promise
 }
-function async func3(name) {
+async function func3(name) {
   // operations that takes a bit of time and then resolves the promise
 }
-function async func4(name) {
+async function func4(name) {
   // operations that takes a bit of time and then resolves the promise
 }
 
@@ -218,7 +218,6 @@ JavaScript is a dynamic language and depending on how the framework parses a URL
 | `?foo[]=bar` | `['bar']` (array of string) |
 | `?foo[]=bar&foo[]=baz` | `['bar', 'baz']` (array of string) |
 | `?foo[bar]=baz` | `{ bar : 'baz' }` (object with a key) |
-| `?foo[]=bar` | `['bar']` (array of string) |
 | `?foo[]baz=bar` | `['bar']` (array of string - postfix is lost) |
 | `?foo[][baz]=bar` | `[ { baz: 'bar' } ]` (array of object) |
 | `?foo[bar][baz]=bar` | `{ foo: { bar: { baz: 'bar' } } }` (object tree) |
@@ -444,7 +443,7 @@ app.use(helmet()); // Add various HTTP headers
 ```
 
 The top-level `helmet` function is a wrapper around 14 smaller middlewares.
-Bellow is a list of HTTP security headers covered by `helmet` middlewares:
+Below is a list of HTTP security headers covered by `helmet` middlewares:
 
 - **[Strict-Transport-Security](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security)**: [HTTP Strict Transport Security (HSTS)](https://cheatsheetseries.owasp.org/cheatsheets/HTTP_Strict_Transport_Security_Cheat_Sheet.html) dictates browsers that the application can only be accessed via HTTPS connections. In order to use it in your application, add the following codes:
 
@@ -511,15 +510,6 @@ The above code sets Cache-Control, Surrogate-Control, Pragma and Expires headers
 
 ```JavaScript
 app.use(helmet.ieNoOpen());
-```
-
-- **[Expect-CT](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Expect-CT):** Certificate Transparency is a new mechanism developed to fix some structural problems regarding current SSL infrastructure. Expect-CT header may enforce certificate transparency requirements. It can be implemented in your application as follows:
-
-```JavaScript
-const expectCt = require('expect-ct');
-app.use(expectCt({ maxAge: 123 }));
-app.use(expectCt({ enforce: true, maxAge: 123 }));
-app.use(expectCt({ enforce: true, maxAge: 123, reportUri: 'http://example.com'}));
 ```
 
 - **X-Powered-By:** X-Powered-By header is used to inform what technology is used in the server side. This is an unnecessary header causing information leakage, so it should be removed from your application. To do so, you can use the `hidePoweredBy` as follows:
