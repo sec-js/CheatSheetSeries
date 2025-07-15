@@ -16,11 +16,11 @@
         <link rel="prev" href="Clickjacking_Defense_Cheat_Sheet.html">
       
       
-        <link rel="next" href="Credential_Stuffing_Prevention_Cheat_Sheet.html">
+        <link rel="next" href="Cookie_Theft_Mitigation_Cheat_Sheet.html">
       
       
       <link rel="icon" href="../assets/WebSite_Favicon.png">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.3.2">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.42">
     
     
       
@@ -28,10 +28,10 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.30068a00.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.0253249f.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.85d0ee34.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -50,7 +50,7 @@
       
     
     
-    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -69,9 +69,6 @@
     
     <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
   
-    
-    
-      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
@@ -97,12 +94,12 @@
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href="../index.html" title="OWASP Cheat Sheet Series" class="md-header__button md-logo" aria-label="OWASP Cheat Sheet Series" data-md-component="logo">
       
-  <img src="../assets/OWASP_Logo_Transp.png" alt="logo">
+  <img src="../assets/OWASP_Logo.svg" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
       
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
     </label>
     <div class="md-header__title" data-md-component="header-title">
       <div class="md-header__ellipsis">
@@ -127,20 +124,20 @@
     
     
     
-    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
     
-      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
       </label>
     
   
     
     
     
-    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
     
-      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
       </label>
     
   
@@ -148,10 +145,13 @@
       
     
     
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
     
       <label class="md-header__button md-icon" for="__search">
         
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
       </label>
       <div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="__search"></label>
@@ -160,21 +160,21 @@
       <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
       <label class="md-search__icon md-icon" for="__search">
         
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
         
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
       </label>
       <nav class="md-search__options" aria-label="Search">
         
         <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
           
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
         </button>
       </nav>
       
     </form>
     <div class="md-search__output">
-      <div class="md-search__scrollwrap" data-md-scrollfix>
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
         <div class="md-search-result" data-md-component="search-result">
           <div class="md-search-result__meta">
             Initializing search
@@ -191,7 +191,7 @@
         <a href="https://github.com/OWASP/CheatSheetSeries" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
   </div>
   <div class="md-source__repository">
     OWASP/CheatSheetSeries
@@ -226,7 +226,7 @@
   <label class="md-nav__title" for="__drawer">
     <a href="../index.html" title="OWASP Cheat Sheet Series" class="md-nav__button md-logo" aria-label="OWASP Cheat Sheet Series" data-md-component="logo">
       
-  <img src="../assets/OWASP_Logo_Transp.png" alt="logo">
+  <img src="../assets/OWASP_Logo.svg" alt="logo">
 
     </a>
     OWASP Cheat Sheet Series
@@ -236,7 +236,7 @@
       <a href="https://github.com/OWASP/CheatSheetSeries" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
   </div>
   <div class="md-source__repository">
     OWASP/CheatSheetSeries
@@ -248,6 +248,7 @@
     
       
       
+  
   
   
   
@@ -270,6 +271,7 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="../Glossary.html" class="md-nav__link">
         
@@ -286,6 +288,7 @@
     
       
       
+  
   
   
   
@@ -308,6 +311,7 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="../IndexMASVS.html" class="md-nav__link">
         
@@ -327,6 +331,7 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="../IndexProactiveControls.html" class="md-nav__link">
         
@@ -343,6 +348,7 @@
     
       
       
+  
   
   
   
@@ -367,18 +373,24 @@
     
   
   
+  
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
         
-          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
             
   
   <span class="md-ellipsis">
@@ -398,6 +410,7 @@
             
               
                 
+  
   
   
   
@@ -421,6 +434,7 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="Abuse_Case_Cheat_Sheet.html" class="md-nav__link">
         
@@ -438,6 +452,7 @@
             
               
                 
+  
   
   
   
@@ -461,6 +476,7 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="Attack_Surface_Analysis_Cheat_Sheet.html" class="md-nav__link">
         
@@ -478,6 +494,7 @@
             
               
                 
+  
   
   
   
@@ -501,6 +518,7 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="Authorization_Cheat_Sheet.html" class="md-nav__link">
         
@@ -518,6 +536,7 @@
             
               
                 
+  
   
   
   
@@ -541,6 +560,28 @@
   
   
   
+  
+    <li class="md-nav__item">
+      <a href="Automotive_Security.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Automotive Security.md
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
     <li class="md-nav__item">
       <a href="Bean_Validation_Cheat_Sheet.html" class="md-nav__link">
         
@@ -558,6 +599,28 @@
             
               
                 
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Browser_Extension_Vulnerabilities_Cheat_Sheet.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Browser Extension Vulnerabilities
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
   
   
   
@@ -581,6 +644,7 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="CI_CD_Security_Cheat_Sheet.html" class="md-nav__link">
         
@@ -598,6 +662,7 @@
             
               
                 
+  
   
   
   
@@ -621,6 +686,7 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="Clickjacking_Defense_Cheat_Sheet.html" class="md-nav__link">
         
@@ -641,6 +707,7 @@
   
   
     
+  
   
   
     <li class="md-nav__item md-nav__item--active">
@@ -689,14 +756,18 @@
       
         <li class="md-nav__item">
   <a href="#introduction" class="md-nav__link">
-    Introduction
+    <span class="md-ellipsis">
+      Introduction
+    </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#context" class="md-nav__link">
-    Context
+    <span class="md-ellipsis">
+      Context
+    </span>
   </a>
   
     <nav class="md-nav" aria-label="Context">
@@ -704,7 +775,9 @@
         
           <li class="md-nav__item">
   <a href="#defense-against-xss" class="md-nav__link">
-    Defense against XSS
+    <span class="md-ellipsis">
+      Defense against XSS
+    </span>
   </a>
   
     <nav class="md-nav" aria-label="Defense against XSS">
@@ -712,35 +785,45 @@
         
           <li class="md-nav__item">
   <a href="#1-restricting-inline-scripts" class="md-nav__link">
-    1. Restricting Inline Scripts
+    <span class="md-ellipsis">
+      1. Restricting Inline Scripts
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#2-restricting-remote-scripts" class="md-nav__link">
-    2. Restricting Remote Scripts
+    <span class="md-ellipsis">
+      2. Restricting Remote Scripts
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#3-restricting-unsafe-javascript" class="md-nav__link">
-    3. Restricting Unsafe JavaScript
+    <span class="md-ellipsis">
+      3. Restricting Unsafe JavaScript
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#4-restricting-form-submissions" class="md-nav__link">
-    4. Restricting Form submissions
+    <span class="md-ellipsis">
+      4. Restricting Form submissions
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#5-restricting-objects" class="md-nav__link">
-    5. Restricting Objects
+    <span class="md-ellipsis">
+      5. Restricting Objects
+    </span>
   </a>
   
 </li>
@@ -752,14 +835,18 @@
         
           <li class="md-nav__item">
   <a href="#defense-against-framing-attacks" class="md-nav__link">
-    Defense against framing attacks
+    <span class="md-ellipsis">
+      Defense against framing attacks
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#defense-in-depth" class="md-nav__link">
-    Defense in Depth
+    <span class="md-ellipsis">
+      Defense in Depth
+    </span>
   </a>
   
 </li>
@@ -771,7 +858,9 @@
       
         <li class="md-nav__item">
   <a href="#policy-delivery" class="md-nav__link">
-    Policy Delivery
+    <span class="md-ellipsis">
+      Policy Delivery
+    </span>
   </a>
   
     <nav class="md-nav" aria-label="Policy Delivery">
@@ -779,28 +868,36 @@
         
           <li class="md-nav__item">
   <a href="#1-content-security-policy-header" class="md-nav__link">
-    1. Content-Security-Policy Header
+    <span class="md-ellipsis">
+      1. Content-Security-Policy Header
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#2-content-security-policy-report-only-header" class="md-nav__link">
-    2. Content-Security-Policy-Report-Only Header
+    <span class="md-ellipsis">
+      2. Content-Security-Policy-Report-Only Header
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#3-content-security-policy-meta-tag" class="md-nav__link">
-    3. Content-Security-Policy Meta Tag
+    <span class="md-ellipsis">
+      3. Content-Security-Policy Meta Tag
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#warning" class="md-nav__link">
-    WARNING
+    <span class="md-ellipsis">
+      WARNING
+    </span>
   </a>
   
 </li>
@@ -812,14 +909,18 @@
       
         <li class="md-nav__item">
   <a href="#csp-types-granularallowlist-based-or-strict" class="md-nav__link">
-    CSP Types (granular/allowlist based or strict)
+    <span class="md-ellipsis">
+      CSP Types (granular/allowlist based or strict)
+    </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#strict-csp" class="md-nav__link">
-    Strict CSP
+    <span class="md-ellipsis">
+      Strict CSP
+    </span>
   </a>
   
     <nav class="md-nav" aria-label="Strict CSP">
@@ -827,7 +928,9 @@
         
           <li class="md-nav__item">
   <a href="#nonce-based" class="md-nav__link">
-    Nonce based
+    <span class="md-ellipsis">
+      Nonce based
+    </span>
   </a>
   
     <nav class="md-nav" aria-label="Nonce based">
@@ -835,7 +938,9 @@
         
           <li class="md-nav__item">
   <a href="#warning_1" class="md-nav__link">
-    Warning
+    <span class="md-ellipsis">
+      Warning
+    </span>
   </a>
   
 </li>
@@ -847,7 +952,9 @@
         
           <li class="md-nav__item">
   <a href="#hashes" class="md-nav__link">
-    Hashes
+    <span class="md-ellipsis">
+      Hashes
+    </span>
   </a>
   
     <nav class="md-nav" aria-label="Hashes">
@@ -855,7 +962,9 @@
         
           <li class="md-nav__item">
   <a href="#note" class="md-nav__link">
-    Note
+    <span class="md-ellipsis">
+      Note
+    </span>
   </a>
   
 </li>
@@ -867,7 +976,9 @@
         
           <li class="md-nav__item">
   <a href="#strict-dynamic" class="md-nav__link">
-    strict-dynamic
+    <span class="md-ellipsis">
+      strict-dynamic
+    </span>
   </a>
   
 </li>
@@ -879,7 +990,9 @@
       
         <li class="md-nav__item">
   <a href="#detailed-csp-directives" class="md-nav__link">
-    Detailed CSP Directives
+    <span class="md-ellipsis">
+      Detailed CSP Directives
+    </span>
   </a>
   
     <nav class="md-nav" aria-label="Detailed CSP Directives">
@@ -887,35 +1000,45 @@
         
           <li class="md-nav__item">
   <a href="#fetch-directives" class="md-nav__link">
-    Fetch Directives
+    <span class="md-ellipsis">
+      Fetch Directives
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#document-directives" class="md-nav__link">
-    Document Directives
+    <span class="md-ellipsis">
+      Document Directives
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#navigation-directives" class="md-nav__link">
-    Navigation Directives
+    <span class="md-ellipsis">
+      Navigation Directives
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#reporting-directives" class="md-nav__link">
-    Reporting Directives
+    <span class="md-ellipsis">
+      Reporting Directives
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#special-directive-sources" class="md-nav__link">
-    Special Directive Sources
+    <span class="md-ellipsis">
+      Special Directive Sources
+    </span>
   </a>
   
 </li>
@@ -927,7 +1050,9 @@
       
         <li class="md-nav__item">
   <a href="#csp-sample-policies" class="md-nav__link">
-    CSP Sample Policies
+    <span class="md-ellipsis">
+      CSP Sample Policies
+    </span>
   </a>
   
     <nav class="md-nav" aria-label="CSP Sample Policies">
@@ -935,7 +1060,9 @@
         
           <li class="md-nav__item">
   <a href="#strict-policy" class="md-nav__link">
-    Strict Policy
+    <span class="md-ellipsis">
+      Strict Policy
+    </span>
   </a>
   
     <nav class="md-nav" aria-label="Strict Policy">
@@ -943,14 +1070,18 @@
         
           <li class="md-nav__item">
   <a href="#nonce-based-strict-policy" class="md-nav__link">
-    Nonce-based Strict Policy
+    <span class="md-ellipsis">
+      Nonce-based Strict Policy
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#hash-based-strict-policy" class="md-nav__link">
-    Hash-based Strict Policy
+    <span class="md-ellipsis">
+      Hash-based Strict Policy
+    </span>
   </a>
   
 </li>
@@ -962,28 +1093,36 @@
         
           <li class="md-nav__item">
   <a href="#basic-non-strict-csp-policy" class="md-nav__link">
-    Basic non-Strict CSP Policy
+    <span class="md-ellipsis">
+      Basic non-Strict CSP Policy
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#upgrading-insecure-requests" class="md-nav__link">
-    Upgrading insecure requests
+    <span class="md-ellipsis">
+      Upgrading insecure requests
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#preventing-framing-attacks-clickjacking-cross-site-leaks" class="md-nav__link">
-    Preventing framing attacks (clickjacking, cross-site leaks)
+    <span class="md-ellipsis">
+      Preventing framing attacks (clickjacking, cross-site leaks)
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#refactoring-inline-code" class="md-nav__link">
-    Refactoring inline code
+    <span class="md-ellipsis">
+      Refactoring inline code
+    </span>
   </a>
   
 </li>
@@ -995,7 +1134,9 @@
       
         <li class="md-nav__item">
   <a href="#references" class="md-nav__link">
-    References
+    <span class="md-ellipsis">
+      References
+    </span>
   </a>
   
 </li>
@@ -1011,6 +1152,28 @@
             
               
                 
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Cookie_Theft_Mitigation_Cheat_Sheet.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Cookie Theft Mitigation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
   
   
   
@@ -1034,6 +1197,7 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html" class="md-nav__link">
         
@@ -1051,6 +1215,7 @@
             
               
                 
+  
   
   
   
@@ -1074,6 +1239,7 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="Cryptographic_Storage_Cheat_Sheet.html" class="md-nav__link">
         
@@ -1091,6 +1257,7 @@
             
               
                 
+  
   
   
   
@@ -1114,6 +1281,7 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="DOM_based_XSS_Prevention_Cheat_Sheet.html" class="md-nav__link">
         
@@ -1131,6 +1299,7 @@
             
               
                 
+  
   
   
   
@@ -1154,6 +1323,7 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="Denial_of_Service_Cheat_Sheet.html" class="md-nav__link">
         
@@ -1171,6 +1341,7 @@
             
               
                 
+  
   
   
   
@@ -1194,6 +1365,7 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="Django_REST_Framework_Cheat_Sheet.html" class="md-nav__link">
         
@@ -1211,6 +1383,7 @@
             
               
                 
+  
   
   
   
@@ -1234,6 +1407,7 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="Docker_Security_Cheat_Sheet.html" class="md-nav__link">
         
@@ -1251,6 +1425,7 @@
             
               
                 
+  
   
   
   
@@ -1274,6 +1449,28 @@
   
   
   
+  
+    <li class="md-nav__item">
+      <a href="Drone_Security_Cheat_Sheet.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Drone Security
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
     <li class="md-nav__item">
       <a href="Error_Handling_Cheat_Sheet.html" class="md-nav__link">
         
@@ -1291,6 +1488,7 @@
             
               
                 
+  
   
   
   
@@ -1314,6 +1512,7 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="Forgot_Password_Cheat_Sheet.html" class="md-nav__link">
         
@@ -1331,6 +1530,7 @@
             
               
                 
+  
   
   
   
@@ -1354,6 +1554,7 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="HTML5_Security_Cheat_Sheet.html" class="md-nav__link">
         
@@ -1371,6 +1572,7 @@
             
               
                 
+  
   
   
   
@@ -1394,6 +1596,7 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="HTTP_Strict_Transport_Security_Cheat_Sheet.html" class="md-nav__link">
         
@@ -1411,6 +1614,7 @@
             
               
                 
+  
   
   
   
@@ -1434,6 +1638,7 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="Injection_Prevention_Cheat_Sheet.html" class="md-nav__link">
         
@@ -1451,6 +1656,7 @@
             
               
                 
+  
   
   
   
@@ -1474,6 +1680,7 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="Input_Validation_Cheat_Sheet.html" class="md-nav__link">
         
@@ -1491,6 +1698,7 @@
             
               
                 
+  
   
   
   
@@ -1514,6 +1722,7 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="JAAS_Cheat_Sheet.html" class="md-nav__link">
         
@@ -1531,6 +1740,7 @@
             
               
                 
+  
   
   
   
@@ -1554,6 +1764,7 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="Java_Security_Cheat_Sheet.html" class="md-nav__link">
         
@@ -1571,6 +1782,7 @@
             
               
                 
+  
   
   
   
@@ -1594,6 +1806,7 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="Kubernetes_Security_Cheat_Sheet.html" class="md-nav__link">
         
@@ -1611,6 +1824,7 @@
             
               
                 
+  
   
   
   
@@ -1634,6 +1848,28 @@
   
   
   
+  
+    <li class="md-nav__item">
+      <a href="LLM_Prompt_Injection_Prevention_Cheat_Sheet.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LLM Prompt Injection Prevention
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
     <li class="md-nav__item">
       <a href="Laravel_Cheat_Sheet.html" class="md-nav__link">
         
@@ -1651,6 +1887,28 @@
             
               
                 
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Legacy_Application_Management_Cheat_Sheet.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Legacy Application Management
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
   
   
   
@@ -1674,6 +1932,7 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="Logging_Vocabulary_Cheat_Sheet.html" class="md-nav__link">
         
@@ -1691,6 +1950,7 @@
             
               
                 
+  
   
   
   
@@ -1714,6 +1974,7 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="Microservices_Security_Cheat_Sheet.html" class="md-nav__link">
         
@@ -1731,6 +1992,7 @@
             
               
                 
+  
   
   
   
@@ -1754,6 +2016,7 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="Mobile_Application_Security_Cheat_Sheet.html" class="md-nav__link">
         
@@ -1771,6 +2034,7 @@
             
               
                 
+  
   
   
   
@@ -1794,6 +2058,7 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="NPM_Security_Cheat_Sheet.html" class="md-nav__link">
         
@@ -1811,6 +2076,7 @@
             
               
                 
+  
   
   
   
@@ -1834,6 +2100,7 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="NodeJS_Docker_Cheat_Sheet.html" class="md-nav__link">
         
@@ -1851,6 +2118,7 @@
             
               
                 
+  
   
   
   
@@ -1874,6 +2142,7 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="OAuth2_Cheat_Sheet.html" class="md-nav__link">
         
@@ -1891,6 +2160,7 @@
             
               
                 
+  
   
   
   
@@ -1914,6 +2184,7 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="PHP_Configuration_Cheat_Sheet.html" class="md-nav__link">
         
@@ -1931,6 +2202,7 @@
             
               
                 
+  
   
   
   
@@ -1954,6 +2226,7 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="Pinning_Cheat_Sheet.html" class="md-nav__link">
         
@@ -1971,6 +2244,7 @@
             
               
                 
+  
   
   
   
@@ -1994,6 +2268,7 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="Query_Parameterization_Cheat_Sheet.html" class="md-nav__link">
         
@@ -2011,6 +2286,7 @@
             
               
                 
+  
   
   
   
@@ -2034,6 +2310,7 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="REST_Security_Cheat_Sheet.html" class="md-nav__link">
         
@@ -2051,6 +2328,7 @@
             
               
                 
+  
   
   
   
@@ -2074,6 +2352,7 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="SAML_Security_Cheat_Sheet.html" class="md-nav__link">
         
@@ -2091,6 +2370,7 @@
             
               
                 
+  
   
   
   
@@ -2114,6 +2394,7 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="Secrets_Management_Cheat_Sheet.html" class="md-nav__link">
         
@@ -2131,6 +2412,7 @@
             
               
                 
+  
   
   
   
@@ -2154,6 +2436,7 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="Secure_Product_Design_Cheat_Sheet.html" class="md-nav__link">
         
@@ -2171,6 +2454,7 @@
             
               
                 
+  
   
   
   
@@ -2194,6 +2478,7 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="Server_Side_Request_Forgery_Prevention_Cheat_Sheet.html" class="md-nav__link">
         
@@ -2211,6 +2496,7 @@
             
               
                 
+  
   
   
   
@@ -2234,6 +2520,28 @@
   
   
   
+  
+    <li class="md-nav__item">
+      <a href="Software_Supply_Chain_Security_Cheat_Sheet.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Software Supply Chain Security
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
     <li class="md-nav__item">
       <a href="Symfony_Cheat_Sheet.html" class="md-nav__link">
         
@@ -2251,6 +2559,7 @@
             
               
                 
+  
   
   
   
@@ -2274,6 +2583,7 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="Third_Party_Javascript_Management_Cheat_Sheet.html" class="md-nav__link">
         
@@ -2291,6 +2601,7 @@
             
               
                 
+  
   
   
   
@@ -2314,6 +2625,7 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="Transaction_Authorization_Cheat_Sheet.html" class="md-nav__link">
         
@@ -2331,6 +2643,7 @@
             
               
                 
+  
   
   
   
@@ -2354,6 +2667,28 @@
   
   
   
+  
+    <li class="md-nav__item">
+      <a href="Transport_Layer_Security_Cheat_Sheet.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Transport Layer Security
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
     <li class="md-nav__item">
       <a href="Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html" class="md-nav__link">
         
@@ -2371,6 +2706,7 @@
             
               
                 
+  
   
   
   
@@ -2394,6 +2730,7 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="Virtual_Patching_Cheat_Sheet.html" class="md-nav__link">
         
@@ -2411,6 +2748,7 @@
             
               
                 
+  
   
   
   
@@ -2434,6 +2772,7 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="Vulnerable_Dependency_Management_Cheat_Sheet.html" class="md-nav__link">
         
@@ -2451,6 +2790,7 @@
             
               
                 
+  
   
   
   
@@ -2474,6 +2814,7 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="XML_External_Entity_Prevention_Cheat_Sheet.html" class="md-nav__link">
         
@@ -2491,6 +2832,7 @@
             
               
                 
+  
   
   
   
@@ -2514,6 +2856,7 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="XSS_Filter_Evasion_Cheat_Sheet.html" class="md-nav__link">
         
@@ -2534,12 +2877,34 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="XS_Leaks_Cheat_Sheet.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
     XS Leaks
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Zero_Trust_Architecture_Cheat_Sheet.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Zero Trust Architecture
   </span>
   
 
@@ -2584,14 +2949,18 @@
       
         <li class="md-nav__item">
   <a href="#introduction" class="md-nav__link">
-    Introduction
+    <span class="md-ellipsis">
+      Introduction
+    </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#context" class="md-nav__link">
-    Context
+    <span class="md-ellipsis">
+      Context
+    </span>
   </a>
   
     <nav class="md-nav" aria-label="Context">
@@ -2599,7 +2968,9 @@
         
           <li class="md-nav__item">
   <a href="#defense-against-xss" class="md-nav__link">
-    Defense against XSS
+    <span class="md-ellipsis">
+      Defense against XSS
+    </span>
   </a>
   
     <nav class="md-nav" aria-label="Defense against XSS">
@@ -2607,35 +2978,45 @@
         
           <li class="md-nav__item">
   <a href="#1-restricting-inline-scripts" class="md-nav__link">
-    1. Restricting Inline Scripts
+    <span class="md-ellipsis">
+      1. Restricting Inline Scripts
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#2-restricting-remote-scripts" class="md-nav__link">
-    2. Restricting Remote Scripts
+    <span class="md-ellipsis">
+      2. Restricting Remote Scripts
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#3-restricting-unsafe-javascript" class="md-nav__link">
-    3. Restricting Unsafe JavaScript
+    <span class="md-ellipsis">
+      3. Restricting Unsafe JavaScript
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#4-restricting-form-submissions" class="md-nav__link">
-    4. Restricting Form submissions
+    <span class="md-ellipsis">
+      4. Restricting Form submissions
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#5-restricting-objects" class="md-nav__link">
-    5. Restricting Objects
+    <span class="md-ellipsis">
+      5. Restricting Objects
+    </span>
   </a>
   
 </li>
@@ -2647,14 +3028,18 @@
         
           <li class="md-nav__item">
   <a href="#defense-against-framing-attacks" class="md-nav__link">
-    Defense against framing attacks
+    <span class="md-ellipsis">
+      Defense against framing attacks
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#defense-in-depth" class="md-nav__link">
-    Defense in Depth
+    <span class="md-ellipsis">
+      Defense in Depth
+    </span>
   </a>
   
 </li>
@@ -2666,7 +3051,9 @@
       
         <li class="md-nav__item">
   <a href="#policy-delivery" class="md-nav__link">
-    Policy Delivery
+    <span class="md-ellipsis">
+      Policy Delivery
+    </span>
   </a>
   
     <nav class="md-nav" aria-label="Policy Delivery">
@@ -2674,28 +3061,36 @@
         
           <li class="md-nav__item">
   <a href="#1-content-security-policy-header" class="md-nav__link">
-    1. Content-Security-Policy Header
+    <span class="md-ellipsis">
+      1. Content-Security-Policy Header
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#2-content-security-policy-report-only-header" class="md-nav__link">
-    2. Content-Security-Policy-Report-Only Header
+    <span class="md-ellipsis">
+      2. Content-Security-Policy-Report-Only Header
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#3-content-security-policy-meta-tag" class="md-nav__link">
-    3. Content-Security-Policy Meta Tag
+    <span class="md-ellipsis">
+      3. Content-Security-Policy Meta Tag
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#warning" class="md-nav__link">
-    WARNING
+    <span class="md-ellipsis">
+      WARNING
+    </span>
   </a>
   
 </li>
@@ -2707,14 +3102,18 @@
       
         <li class="md-nav__item">
   <a href="#csp-types-granularallowlist-based-or-strict" class="md-nav__link">
-    CSP Types (granular/allowlist based or strict)
+    <span class="md-ellipsis">
+      CSP Types (granular/allowlist based or strict)
+    </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#strict-csp" class="md-nav__link">
-    Strict CSP
+    <span class="md-ellipsis">
+      Strict CSP
+    </span>
   </a>
   
     <nav class="md-nav" aria-label="Strict CSP">
@@ -2722,7 +3121,9 @@
         
           <li class="md-nav__item">
   <a href="#nonce-based" class="md-nav__link">
-    Nonce based
+    <span class="md-ellipsis">
+      Nonce based
+    </span>
   </a>
   
     <nav class="md-nav" aria-label="Nonce based">
@@ -2730,7 +3131,9 @@
         
           <li class="md-nav__item">
   <a href="#warning_1" class="md-nav__link">
-    Warning
+    <span class="md-ellipsis">
+      Warning
+    </span>
   </a>
   
 </li>
@@ -2742,7 +3145,9 @@
         
           <li class="md-nav__item">
   <a href="#hashes" class="md-nav__link">
-    Hashes
+    <span class="md-ellipsis">
+      Hashes
+    </span>
   </a>
   
     <nav class="md-nav" aria-label="Hashes">
@@ -2750,7 +3155,9 @@
         
           <li class="md-nav__item">
   <a href="#note" class="md-nav__link">
-    Note
+    <span class="md-ellipsis">
+      Note
+    </span>
   </a>
   
 </li>
@@ -2762,7 +3169,9 @@
         
           <li class="md-nav__item">
   <a href="#strict-dynamic" class="md-nav__link">
-    strict-dynamic
+    <span class="md-ellipsis">
+      strict-dynamic
+    </span>
   </a>
   
 </li>
@@ -2774,7 +3183,9 @@
       
         <li class="md-nav__item">
   <a href="#detailed-csp-directives" class="md-nav__link">
-    Detailed CSP Directives
+    <span class="md-ellipsis">
+      Detailed CSP Directives
+    </span>
   </a>
   
     <nav class="md-nav" aria-label="Detailed CSP Directives">
@@ -2782,35 +3193,45 @@
         
           <li class="md-nav__item">
   <a href="#fetch-directives" class="md-nav__link">
-    Fetch Directives
+    <span class="md-ellipsis">
+      Fetch Directives
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#document-directives" class="md-nav__link">
-    Document Directives
+    <span class="md-ellipsis">
+      Document Directives
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#navigation-directives" class="md-nav__link">
-    Navigation Directives
+    <span class="md-ellipsis">
+      Navigation Directives
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#reporting-directives" class="md-nav__link">
-    Reporting Directives
+    <span class="md-ellipsis">
+      Reporting Directives
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#special-directive-sources" class="md-nav__link">
-    Special Directive Sources
+    <span class="md-ellipsis">
+      Special Directive Sources
+    </span>
   </a>
   
 </li>
@@ -2822,7 +3243,9 @@
       
         <li class="md-nav__item">
   <a href="#csp-sample-policies" class="md-nav__link">
-    CSP Sample Policies
+    <span class="md-ellipsis">
+      CSP Sample Policies
+    </span>
   </a>
   
     <nav class="md-nav" aria-label="CSP Sample Policies">
@@ -2830,7 +3253,9 @@
         
           <li class="md-nav__item">
   <a href="#strict-policy" class="md-nav__link">
-    Strict Policy
+    <span class="md-ellipsis">
+      Strict Policy
+    </span>
   </a>
   
     <nav class="md-nav" aria-label="Strict Policy">
@@ -2838,14 +3263,18 @@
         
           <li class="md-nav__item">
   <a href="#nonce-based-strict-policy" class="md-nav__link">
-    Nonce-based Strict Policy
+    <span class="md-ellipsis">
+      Nonce-based Strict Policy
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#hash-based-strict-policy" class="md-nav__link">
-    Hash-based Strict Policy
+    <span class="md-ellipsis">
+      Hash-based Strict Policy
+    </span>
   </a>
   
 </li>
@@ -2857,28 +3286,36 @@
         
           <li class="md-nav__item">
   <a href="#basic-non-strict-csp-policy" class="md-nav__link">
-    Basic non-Strict CSP Policy
+    <span class="md-ellipsis">
+      Basic non-Strict CSP Policy
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#upgrading-insecure-requests" class="md-nav__link">
-    Upgrading insecure requests
+    <span class="md-ellipsis">
+      Upgrading insecure requests
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#preventing-framing-attacks-clickjacking-cross-site-leaks" class="md-nav__link">
-    Preventing framing attacks (clickjacking, cross-site leaks)
+    <span class="md-ellipsis">
+      Preventing framing attacks (clickjacking, cross-site leaks)
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#refactoring-inline-code" class="md-nav__link">
-    Refactoring inline code
+    <span class="md-ellipsis">
+      Refactoring inline code
+    </span>
   </a>
   
 </li>
@@ -2890,7 +3327,9 @@
       
         <li class="md-nav__item">
   <a href="#references" class="md-nav__link">
-    References
+    <span class="md-ellipsis">
+      References
+    </span>
   </a>
   
 </li>
@@ -2987,7 +3426,7 @@
 <p>The original mechanism for building a CSP involved creating allow-lists which would define the content and sources that were permitted in the context of the HTML page.</p>
 <p>However, current leading practice is to create a "Strict" CSP which is much easier to deploy and more secure as it is less likely to be bypassed.</p>
 <h2 id="strict-csp">Strict CSP<a class="headerlink" href="#strict-csp" title="Permanent link">&para;</a></h2>
-<p>A strict CSP can be created by using a limited number of the granular <a href="#fetch-directives">Fetch Directives listed below</a> listed below along with one of two mechanisms:</p>
+<p>A strict CSP can be created by using a limited number of the granular <a href="#fetch-directives">Fetch Directives listed below</a> along with one of two mechanisms:</p>
 <ul>
 <li>Nonce based</li>
 <li>Hash based</li>
@@ -3017,7 +3456,7 @@
 </blockquote>
 <p>You can also use this <a href="https://report-uri.com/home/hash">hash generator</a>. This is a great <a href="https://csp.withgoogle.com/docs/faq.html#static-content">example</a> of using hashes.</p>
 <h4 id="note">Note<a class="headerlink" href="#note" title="Permanent link">&para;</a></h4>
-<p>Using hashes can be a risk approach approach. If you change <em>anything</em> inside the script tag (even whitespace) by, e.g., formatting your code, the hash will be different, and the script won't render.</p>
+<p>Using hashes can be a risky approach. If you change <em>anything</em> inside the script tag (even whitespace) by, e.g., formatting your code, the hash will be different, and the script won't render.</p>
 <h3 id="strict-dynamic">strict-dynamic<a class="headerlink" href="#strict-dynamic" title="Permanent link">&para;</a></h3>
 <p>The <code>strict-dynamic</code> directive can be used as part of a Strict CSP in combination with either hashes or nonces.</p>
 <p>If a script block which has either the correct hash or nonce is creating additional DOM elements and executing JS inside of them, <code>strict-dynamic</code> tells the browser to trust those elements as well without having to explicitly add nonces or hashes for each one.</p>
@@ -3053,10 +3492,10 @@
 <p>Document directives instruct the browser about the properties of the document to which the policies will apply to.</p>
 <ul>
 <li><code>base-uri</code> specifies the possible URLs that the <code>&lt;base&gt;</code> element can use.</li>
-<li><code>plugin-types</code> limits the types of resources that can be loaded into the document (<em>e.g.</em> application/pdf). 3 rules apply to the affected elements, <code>&lt;embed&gt;</code> and <code>&lt;object&gt;</code>:<ul>
+<li><code>plugin-types</code> limits the types of resources that can be loaded into the document (<em>e.g.</em> <code>application/pdf</code>). 3 rules apply to the affected elements, <code>&lt;embed&gt;</code> and <code>&lt;object&gt;</code>:<ul>
 <li>The element needs to explicitly declare its type.</li>
 <li>The element's type needs to match the declared type.</li>
-<li>The element's resource need to match the declared type.</li>
+<li>The element's resource needs to match the declared type.</li>
 </ul>
 </li>
 <li><code>sandbox</code> restricts a page's actions such as submitting forms.<ul>
@@ -3067,13 +3506,12 @@
 </li>
 </ul>
 <h3 id="navigation-directives">Navigation Directives<a class="headerlink" href="#navigation-directives" title="Permanent link">&para;</a></h3>
-<p>Navigation directives instruct the browser about the locations that the document can navigate to.</p>
+<p>Navigation directives instruct the browser about the locations that the document can navigate to or be embedded from.</p>
 <ul>
-<li><code>navigate-to</code> restricts the URLs which a document can navigate to by any mean (<a href="https://caniuse.com/?search=navigate-to">not yet supported</a> by modern browsers in Jan 2021).</li>
 <li><code>form-action</code> restricts the URLs which the forms can submit to.</li>
 <li><code>frame-ancestors</code> restricts the URLs that can embed the requested resource inside of  <code>&lt;frame&gt;</code>, <code>&lt;iframe&gt;</code>, <code>&lt;object&gt;</code>, <code>&lt;embed&gt;</code>, or <code>&lt;applet&gt;</code> elements.<ul>
 <li>If this directive is specified in a <code>&lt;meta&gt;</code> tag, the directive is ignored.</li>
-<li>This directive doesn't fallback to <code>default-src</code> directive.</li>
+<li>This directive doesn't fallback to the <code>default-src</code> directive.</li>
 <li><code>X-Frame-Options</code> is rendered obsolete by this directive and is ignored by the user agents.</li>
 </ul>
 </li>
@@ -3081,7 +3519,7 @@
 <h3 id="reporting-directives">Reporting Directives<a class="headerlink" href="#reporting-directives" title="Permanent link">&para;</a></h3>
 <p>Reporting directives deliver violations of prevented behaviors to specified locations. These directives serve no purpose on their own and are dependent on other directives.</p>
 <ul>
-<li><code>report-to</code> which is a groupname defined in the header in a json formatted header value.<ul>
+<li><code>report-to</code> which is a group name defined in the header in a JSON formatted header value.<ul>
 <li><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/report-to">MDN report-to documentation</a></li>
 </ul>
 </li>
@@ -3207,11 +3645,22 @@
 
 
 
+
+
+  
+  
+
+
+
+
+
+
                 
               </article>
             </div>
           
           
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
         </div>
         
       </main>
@@ -3223,7 +3672,7 @@
       <div class="md-copyright">
   
     <div class="md-copyright__highlight">
-      ©Copyright <script>document.write(new Date().getFullYear())</script> - CheatSheets Series Team - This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/3.0/deed.en_US">Creative Commons Attribution 3.0 Unported License</a>.
+      ©Copyright <script>document.write(new Date().getFullYear())</script> - Cheat Sheets Series Team - This work is licensed under <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International</a>.
     </div>
   
   
@@ -3243,10 +3692,11 @@
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.dfff1995.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.sections", "navigation.expand"], "search": "../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.dff1b7c8.min.js"></script>
+      <script src="../assets/javascripts/bundle.83f73b43.min.js"></script>
       
     
   </body>
