@@ -10,13 +10,13 @@
       
       
       
-        <link rel="canonical" href="https://cheatsheetseries.owasp.org/cheatsheets/Web_Service_Security_Cheat_Sheet.html">
+        <link rel="canonical" href="https://cheatsheetseries.owasp.org/cheatsheets/Subdomain_Takeover_Prevention_Cheat_Sheet.html">
       
       
-        <link rel="prev" href="WebSocket_Security_Cheat_Sheet.html">
+        <link rel="prev" href="Software_Supply_Chain_Security_Cheat_Sheet.html">
       
       
-        <link rel="next" href="XML_External_Entity_Prevention_Cheat_Sheet.html">
+        <link rel="next" href="Symfony_Cheat_Sheet.html">
       
       
       <link rel="icon" href="../assets/WebSite_Favicon.png">
@@ -24,7 +24,7 @@
     
     
       
-        <title>Web Service Security - OWASP Cheat Sheet Series</title>
+        <title>Subdomain Takeover Prevention - OWASP Cheat Sheet Series</title>
       
     
     
@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#web-service-security-cheat-sheet" class="md-skip">
+        <a href="#subdomain-takeover-prevention-cheat-sheet" class="md-skip">
           Skip to content
         </a>
       
@@ -111,7 +111,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Web Service Security
+              Subdomain Takeover Prevention
             
           </span>
         </div>
@@ -2323,10 +2323,30 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="Subdomain_Takeover_Prevention_Cheat_Sheet.html" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Subdomain Takeover Prevention
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="Subdomain_Takeover_Prevention_Cheat_Sheet.html" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -2335,6 +2355,248 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introduction
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-subdomain-takeover-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      How Subdomain Takeover Works
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="How Subdomain Takeover Works">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-basic-mechanism" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Basic Mechanism
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-it-keeps-happening" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why It Keeps Happening
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#record-types-at-risk" class="md-nav__link">
+    <span class="md-ellipsis">
+      Record Types at Risk
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cloud-provider-vulnerability-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cloud Provider Vulnerability Reference
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cloud Provider Vulnerability Reference">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#high-risk-takeover-possible-when-resource-is-removed" class="md-nav__link">
+    <span class="md-ellipsis">
+      High Risk: Takeover Possible When Resource Is Removed
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conditional-risk-takeover-possible-under-specific-circumstances" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conditional Risk: Takeover Possible Under Specific Circumstances
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#service-fingerprints-for-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Service Fingerprints for Detection
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prevention-strategies" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prevention Strategies
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Prevention Strategies">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-manage-dns-record-lifecycle-during-decommissioning" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Manage DNS Record Lifecycle During Decommissioning
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-maintain-a-dns-inventory-linked-to-resource-ownership" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Maintain a DNS Inventory Linked to Resource Ownership
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-implement-automated-dangling-record-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Implement Automated Dangling Record Detection
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-use-domain-verification-where-available" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Use Domain Verification Where Available
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-restrict-wildcard-dns-records" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Restrict Wildcard DNS Records
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-establish-a-decommissioning-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Establish a Decommissioning Checklist
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-limit-the-blast-radius-with-proper-security-scoping" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Limit the Blast Radius with Proper Security Scoping
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#monitoring-and-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Monitoring and Detection
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Monitoring and Detection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#continuous-dns-monitoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      Continuous DNS Monitoring
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#indicators-of-compromise" class="md-nav__link">
+    <span class="md-ellipsis">
+      Indicators of Compromise
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#incident-response" class="md-nav__link">
+    <span class="md-ellipsis">
+      Incident Response
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      References
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -2638,30 +2900,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    Web Service Security
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="Web_Service_Security_Cheat_Sheet.html" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="Web_Service_Security_Cheat_Sheet.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2670,194 +2912,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#introduction" class="md-nav__link">
-    <span class="md-ellipsis">
-      Introduction
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#transport-confidentiality" class="md-nav__link">
-    <span class="md-ellipsis">
-      Transport Confidentiality
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#server-authentication" class="md-nav__link">
-    <span class="md-ellipsis">
-      Server Authentication
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#user-authentication" class="md-nav__link">
-    <span class="md-ellipsis">
-      User Authentication
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#transport-encoding" class="md-nav__link">
-    <span class="md-ellipsis">
-      Transport Encoding
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#message-integrity" class="md-nav__link">
-    <span class="md-ellipsis">
-      Message Integrity
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#message-confidentiality" class="md-nav__link">
-    <span class="md-ellipsis">
-      Message Confidentiality
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#authorization" class="md-nav__link">
-    <span class="md-ellipsis">
-      Authorization
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#schema-validation" class="md-nav__link">
-    <span class="md-ellipsis">
-      Schema Validation
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#content-validation" class="md-nav__link">
-    <span class="md-ellipsis">
-      Content Validation
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#output-encoding" class="md-nav__link">
-    <span class="md-ellipsis">
-      Output Encoding
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#virus-protection" class="md-nav__link">
-    <span class="md-ellipsis">
-      Virus Protection
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#message-size" class="md-nav__link">
-    <span class="md-ellipsis">
-      Message Size
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#availability" class="md-nav__link">
-    <span class="md-ellipsis">
-      Availability
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Availability">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#resources-limiting" class="md-nav__link">
-    <span class="md-ellipsis">
-      Resources Limiting
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#message-throughput" class="md-nav__link">
-    <span class="md-ellipsis">
-      Message Throughput
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#xml-denial-of-service-protection" class="md-nav__link">
-    <span class="md-ellipsis">
-      XML Denial of Service Protection
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#endpoint-security-profile" class="md-nav__link">
-    <span class="md-ellipsis">
-      Endpoint Security Profile
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -3032,145 +3086,37 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#transport-confidentiality" class="md-nav__link">
+  <a href="#how-subdomain-takeover-works" class="md-nav__link">
     <span class="md-ellipsis">
-      Transport Confidentiality
+      How Subdomain Takeover Works
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#server-authentication" class="md-nav__link">
-    <span class="md-ellipsis">
-      Server Authentication
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#user-authentication" class="md-nav__link">
-    <span class="md-ellipsis">
-      User Authentication
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#transport-encoding" class="md-nav__link">
-    <span class="md-ellipsis">
-      Transport Encoding
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#message-integrity" class="md-nav__link">
-    <span class="md-ellipsis">
-      Message Integrity
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#message-confidentiality" class="md-nav__link">
-    <span class="md-ellipsis">
-      Message Confidentiality
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#authorization" class="md-nav__link">
-    <span class="md-ellipsis">
-      Authorization
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#schema-validation" class="md-nav__link">
-    <span class="md-ellipsis">
-      Schema Validation
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#content-validation" class="md-nav__link">
-    <span class="md-ellipsis">
-      Content Validation
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#output-encoding" class="md-nav__link">
-    <span class="md-ellipsis">
-      Output Encoding
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#virus-protection" class="md-nav__link">
-    <span class="md-ellipsis">
-      Virus Protection
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#message-size" class="md-nav__link">
-    <span class="md-ellipsis">
-      Message Size
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#availability" class="md-nav__link">
-    <span class="md-ellipsis">
-      Availability
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Availability">
+    <nav class="md-nav" aria-label="How Subdomain Takeover Works">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#resources-limiting" class="md-nav__link">
+  <a href="#the-basic-mechanism" class="md-nav__link">
     <span class="md-ellipsis">
-      Resources Limiting
+      The Basic Mechanism
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#message-throughput" class="md-nav__link">
+  <a href="#why-it-keeps-happening" class="md-nav__link">
     <span class="md-ellipsis">
-      Message Throughput
+      Why It Keeps Happening
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#xml-denial-of-service-protection" class="md-nav__link">
+  <a href="#record-types-at-risk" class="md-nav__link">
     <span class="md-ellipsis">
-      XML Denial of Service Protection
+      Record Types at Risk
     </span>
   </a>
   
@@ -3182,9 +3128,171 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#endpoint-security-profile" class="md-nav__link">
+  <a href="#cloud-provider-vulnerability-reference" class="md-nav__link">
     <span class="md-ellipsis">
-      Endpoint Security Profile
+      Cloud Provider Vulnerability Reference
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cloud Provider Vulnerability Reference">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#high-risk-takeover-possible-when-resource-is-removed" class="md-nav__link">
+    <span class="md-ellipsis">
+      High Risk: Takeover Possible When Resource Is Removed
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conditional-risk-takeover-possible-under-specific-circumstances" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conditional Risk: Takeover Possible Under Specific Circumstances
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#service-fingerprints-for-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Service Fingerprints for Detection
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prevention-strategies" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prevention Strategies
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Prevention Strategies">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-manage-dns-record-lifecycle-during-decommissioning" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Manage DNS Record Lifecycle During Decommissioning
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-maintain-a-dns-inventory-linked-to-resource-ownership" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Maintain a DNS Inventory Linked to Resource Ownership
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-implement-automated-dangling-record-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Implement Automated Dangling Record Detection
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-use-domain-verification-where-available" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Use Domain Verification Where Available
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-restrict-wildcard-dns-records" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Restrict Wildcard DNS Records
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-establish-a-decommissioning-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Establish a Decommissioning Checklist
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-limit-the-blast-radius-with-proper-security-scoping" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Limit the Blast Radius with Proper Security Scoping
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#monitoring-and-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Monitoring and Detection
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Monitoring and Detection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#continuous-dns-monitoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      Continuous DNS Monitoring
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#indicators-of-compromise" class="md-nav__link">
+    <span class="md-ellipsis">
+      Indicators of Compromise
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#incident-response" class="md-nav__link">
+    <span class="md-ellipsis">
+      Incident Response
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      References
     </span>
   </a>
   
@@ -3208,75 +3316,326 @@
   
 
 
-<h1 id="web-service-security-cheat-sheet">Web Service Security Cheat Sheet<a class="headerlink" href="#web-service-security-cheat-sheet" title="Permanent link">&para;</a></h1>
+<h1 id="subdomain-takeover-prevention-cheat-sheet">Subdomain Takeover Prevention Cheat Sheet<a class="headerlink" href="#subdomain-takeover-prevention-cheat-sheet" title="Permanent link">&para;</a></h1>
 <h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h2>
-<p>This article is focused on providing guidance for securing web services and preventing web services related attacks.</p>
-<p>Please notice that due to the difference in implementation between different frameworks, this cheat sheet is kept at a high level.</p>
-<h2 id="transport-confidentiality">Transport Confidentiality<a class="headerlink" href="#transport-confidentiality" title="Permanent link">&para;</a></h2>
-<p>Transport confidentiality protects against eavesdropping and man-in-the-middle attacks against web service communications to/from the server.</p>
-<p><strong>Rule</strong>: All communication with and between web services containing sensitive features, an authenticated session, or transfer of sensitive data must be encrypted using well-configured <a href="https://en.wikipedia.org/wiki/Transport_Layer_Security">TLS</a>. This is recommended even if the messages themselves are encrypted because <a href="https://en.wikipedia.org/wiki/Transport_Layer_Security">TLS</a> provides numerous benefits beyond traffic confidentiality including integrity protection, replay defenses, and server authentication. For more information on how to do this properly see the <a href="Transport_Layer_Security_Cheat_Sheet.html">Transport Layer Security Cheat Sheet</a>.</p>
-<h2 id="server-authentication">Server Authentication<a class="headerlink" href="#server-authentication" title="Permanent link">&para;</a></h2>
-<p><strong>Rule</strong>: TLS must be used to authenticate the service provider to the service consumer. The service consumer should verify the server certificate is issued by a trusted provider, is not expired, is not revoked, matches the domain name of the service, and that the server has proven that it has the private key associated with the public key certificate (by properly signing something or successfully decrypting something encrypted with the associated public key).</p>
-<h2 id="user-authentication">User Authentication<a class="headerlink" href="#user-authentication" title="Permanent link">&para;</a></h2>
-<p>User authentication verifies the identity of the user or the system trying to connect to the service. Such authentication is usually a function of the container of the web service.</p>
-<p><strong>Rule</strong>: If used, Basic Authentication must be conducted over <a href="https://en.wikipedia.org/wiki/Transport_Layer_Security">TLS</a>, but Basic Authentication is not recommended because it discloses secrets in plan text (base64 encoded) in HTTP Headers.</p>
-<p><strong>Rule</strong>: Client Certificate Authentication using <a href="https://en.wikipedia.org/wiki/Transport_Layer_Security">Mutual-TLS</a> is a common form of authentication that is recommended where appropriate. See: <a href="Authentication_Cheat_Sheet.html">Authentication Cheat Sheet</a>.</p>
-<h2 id="transport-encoding">Transport Encoding<a class="headerlink" href="#transport-encoding" title="Permanent link">&para;</a></h2>
-<p><a href="https://en.wikipedia.org/wiki/SOAP">SOAP</a> encoding styles are meant to move data between software objects into XML format and back again.</p>
-<p><strong>Rule</strong>: Enforce the same encoding style between the client and the server.</p>
-<h2 id="message-integrity">Message Integrity<a class="headerlink" href="#message-integrity" title="Permanent link">&para;</a></h2>
-<p>This is for data at rest. The integrity of data in transit can easily be provided by <a href="https://en.wikipedia.org/wiki/Transport_Layer_Security">TLS</a>.</p>
-<p>When using <a href="https://en.wikipedia.org/wiki/Public-key_cryptography">public key cryptography</a>, encryption does guarantee confidentiality but it does not guarantee integrity since the receiver's public key is public. For the same reason, encryption does not ensure the identity of the sender.</p>
-<p><strong>Rule</strong>: For XML data, use XML digital signatures to provide message integrity using the sender's private key. This signature can be validated by the recipient using the sender's digital certificate (public key).</p>
-<h2 id="message-confidentiality">Message Confidentiality<a class="headerlink" href="#message-confidentiality" title="Permanent link">&para;</a></h2>
-<p>Data elements meant to be kept confidential must be encrypted using a strong encryption cipher with an adequate key length to deter brute-forcing.</p>
-<p><strong>Rule</strong>: Messages containing sensitive data must be encrypted using a strong encryption cipher. This could be transport encryption or message encryption.</p>
-<p><strong>Rule</strong>: Messages containing sensitive data that must remain encrypted at rest after receipt must be encrypted with strong data encryption, not just transport encryption.</p>
-<h2 id="authorization">Authorization<a class="headerlink" href="#authorization" title="Permanent link">&para;</a></h2>
-<p>Web services need to authorize web service clients the same way web applications authorize users. A web service needs to make sure a web service client is authorized to perform a certain action (coarse-grained) on the requested data (fine-grained).</p>
-<p><strong>Rule</strong>: A web service should authorize its clients whether they have access to the method in question. Following an authentication challenge, the web service should check the privileges of the requesting entity whether they have access to the requested resource. This should be done on every request, and a challenge-response Authorization mechanism added to sensitive resources like password changes, primary contact details such as email, physical address, payment or delivery instructions.</p>
-<p><strong>Rule</strong>: Ensure access to administration and management functions within the Web Service Application is limited to web service administrators. Ideally, any administrative capabilities would be in an application that is completely separate from the web services being managed by these capabilities, thus completely separating normal users from these sensitive functions.</p>
-<h2 id="schema-validation">Schema Validation<a class="headerlink" href="#schema-validation" title="Permanent link">&para;</a></h2>
-<p>Schema validation enforces constraints and syntax defined by the schema.</p>
-<p><strong>Rule</strong>: Web services must validate <a href="https://en.wikipedia.org/wiki/SOAP">SOAP</a> payloads against their associated XML schema definition (<a href="https://www.w3schools.com/xml/schema_intro.asp">XSD</a>).</p>
-<p><strong>Rule</strong>: The <a href="https://www.w3schools.com/xml/schema_intro.asp">XSD</a> defined for a <a href="https://en.wikipedia.org/wiki/SOAP">SOAP</a> web service should, at a minimum, define the maximum length and character set of every parameter allowed to pass into and out of the web service.</p>
-<p><strong>Rule</strong>: The <a href="https://www.w3schools.com/xml/schema_intro.asp">XSD</a> defined for a <a href="https://en.wikipedia.org/wiki/SOAP">SOAP</a> web service should define strong (ideally allow-list) validation patterns for all fixed format parameters (e.g., zip codes, phone numbers, list values, etc.).</p>
-<h2 id="content-validation">Content Validation<a class="headerlink" href="#content-validation" title="Permanent link">&para;</a></h2>
-<p><strong>Rule</strong>: Like any web application, web services need to validate input before consuming it. Content validation for XML input should include:</p>
+<p>Subdomain takeover is a vulnerability that occurs when a DNS record (typically a CNAME) points to a cloud resource or third-party service that has been deprovisioned or no longer exists. An attacker can claim the orphaned resource and serve arbitrary content on the victim's subdomain.</p>
+<p>This vulnerability is consistently among the most reported findings in bug bounty programs. Despite being well understood, it remains prevalent because it is fundamentally an operational problem: teams create DNS records when spinning up services but rarely have processes to clean them up during decommissioning.</p>
+<p>The impact extends far beyond serving a defacement page. An attacker controlling a subdomain can:</p>
 <ul>
-<li>Validation against malformed XML entities.</li>
-<li>Validation against <a href="https://en.wikipedia.org/wiki/Billion_laughs_attack">XML Bomb attacks</a>.</li>
-<li>Validating inputs using a strong allowlist.</li>
-<li>Validating against <a href="https://owasp.org/www-community/vulnerabilities/XML_External_Entity_%28XXE%29_Processing">external entity attacks</a>.</li>
+<li><strong>Steal session cookies</strong> scoped to the parent domain (e.g., cookies set on <code>.example.com</code> are sent to <code>attacker-controlled.example.com</code>)</li>
+<li><strong>Bypass Content Security Policy</strong> rules that trust wildcard subdomains (<code>*.example.com</code>)</li>
+<li><strong>Host convincing phishing pages</strong> on a domain the organization's users and customers already trust</li>
+<li><strong>Compromise OAuth and SSO flows</strong> that whitelist the subdomain as a valid redirect URI</li>
+<li><strong>Obtain valid TLS certificates</strong> for the subdomain from Certificate Authorities that use HTTP or email-based domain validation</li>
+<li><strong>Receive email</strong> addressed to the subdomain if MX records are involved, enabling password resets or account verification on third-party services</li>
 </ul>
-<h2 id="output-encoding">Output Encoding<a class="headerlink" href="#output-encoding" title="Permanent link">&para;</a></h2>
-<p>Web services need to ensure that the output sent to clients is encoded to be consumed as data and not as scripts. This gets pretty important when web service clients use the output to render HTML pages either directly or indirectly using AJAX objects.</p>
-<p><strong>Rule</strong>: All the rules of output encoding applies as per <a href="Cross_Site_Scripting_Prevention_Cheat_Sheet.html">Cross Site Scripting Prevention Cheat Sheet</a>.</p>
-<h2 id="virus-protection">Virus Protection<a class="headerlink" href="#virus-protection" title="Permanent link">&para;</a></h2>
-<p><a href="https://en.wikipedia.org/wiki/SOAP">SOAP</a> provides the ability to attach files and documents to <a href="https://en.wikipedia.org/wiki/SOAP">SOAP</a> messages. This gives the opportunity for hackers to attach viruses and malware to these <a href="https://en.wikipedia.org/wiki/SOAP">SOAP</a> messages.</p>
-<p><strong>Rule</strong>: Ensure Virus Scanning technology is installed and preferably inline so files and attachments could be checked before being saved on disk.</p>
-<p><strong>Rule</strong>: Ensure Virus Scanning technology is regularly updated with the latest virus definitions/rules.</p>
-<h2 id="message-size">Message Size<a class="headerlink" href="#message-size" title="Permanent link">&para;</a></h2>
-<p>Web services like web applications could be a target for DOS attacks by automatically sending the web services thousands of large size <a href="https://en.wikipedia.org/wiki/SOAP">SOAP</a> messages. This either cripples the application making it unable to respond to legitimate messages or it could take it down entirely.</p>
-<p><strong>Rule</strong>: <a href="https://en.wikipedia.org/wiki/SOAP">SOAP</a> Messages size should be limited to an appropriate size limit. Larger size limit (or no limit at all) increases the chances of a successful DoS attack.</p>
-<h2 id="availability">Availability<a class="headerlink" href="#availability" title="Permanent link">&para;</a></h2>
-<h3 id="resources-limiting">Resources Limiting<a class="headerlink" href="#resources-limiting" title="Permanent link">&para;</a></h3>
-<p>During regular operation, web services require computational power such as CPU cycles and memory. Due to malfunctioning or while under attack, a web service may required too much resources, leaving the host system unstable.</p>
-<p><strong>Rule</strong>: Limit the amount of CPU cycles the web service can use based on expected service rate, in order to have a stable system.</p>
-<p><strong>Rule</strong>: Limit the amount of memory the web service can use to avoid system running out of memory. In some cases the host system may start killing processes to free up memory.</p>
-<p><strong>Rule</strong>: Limit the number of simultaneous open files, network connections and started processes.</p>
-<h3 id="message-throughput">Message Throughput<a class="headerlink" href="#message-throughput" title="Permanent link">&para;</a></h3>
-<p>Throughput represents the number of web service requests served during a specific amount of time.</p>
-<p><strong>Rule</strong>: Configuration should be optimized for maximum message throughput to avoid running into DoS-like situations.</p>
-<h3 id="xml-denial-of-service-protection">XML Denial of Service Protection<a class="headerlink" href="#xml-denial-of-service-protection" title="Permanent link">&para;</a></h3>
-<p>XML Denial of Service is probably the most serious attack against web services. So the web service must provide the following validation:</p>
-<p><strong>Rule</strong>: Validation against recursive payloads.</p>
-<p><strong>Rule</strong>: Validation against oversized payloads.</p>
-<p><strong>Rule</strong>: Protection against <a href="https://www.ws-attacks.org/XML_Entity_Expansion">XML entity expansion</a>.</p>
-<p><strong>Rule</strong>: Validating against overlong element names. If you are working with <a href="https://en.wikipedia.org/wiki/SOAP">SOAP</a>-based Web Services, the element names are those <a href="https://en.wikipedia.org/wiki/SOAP">SOAP</a> Actions.</p>
-<p>This protection should be provided by your XML parser/schema validator. To verify, build test cases to make sure your parser to resistant to these types of attacks.</p>
-<h2 id="endpoint-security-profile">Endpoint Security Profile<a class="headerlink" href="#endpoint-security-profile" title="Permanent link">&para;</a></h2>
-<p><strong>Rule</strong>: Web services must be compliant with <a href="https://en.wikipedia.org/wiki/Web_Services_Interoperability">Web Services-Interoperability (WS-I)</a> Basic Profile at minimum.</p>
+<p>This cheat sheet provides practical guidance for developers, DevOps engineers, and infrastructure teams to prevent subdomain takeovers, detect dangling records before attackers do, and respond effectively when they are discovered.</p>
+<h2 id="how-subdomain-takeover-works">How Subdomain Takeover Works<a class="headerlink" href="#how-subdomain-takeover-works" title="Permanent link">&para;</a></h2>
+<h3 id="the-basic-mechanism">The Basic Mechanism<a class="headerlink" href="#the-basic-mechanism" title="Permanent link">&para;</a></h3>
+<ol>
+<li>An organization creates a DNS record: <code>blog.example.com CNAME example-blog.herokuapp.com</code></li>
+<li>The Heroku app serves content on <code>blog.example.com</code></li>
+<li>Months later, the team decommissions the Heroku app but forgets to remove the DNS record</li>
+<li>The CNAME still points to <code>example-blog.herokuapp.com</code>, which no longer exists</li>
+<li>An attacker creates a new Heroku app with the name <code>example-blog</code> and claims the hostname</li>
+<li>The attacker now controls what is served on <code>blog.example.com</code></li>
+</ol>
+<h3 id="why-it-keeps-happening">Why It Keeps Happening<a class="headerlink" href="#why-it-keeps-happening" title="Permanent link">&para;</a></h3>
+<p>The root cause is almost always a disconnect between infrastructure provisioning and DNS management:</p>
+<ul>
+<li><strong>Cloud resources are temporary, DNS records are persistent.</strong> Teams spin up and tear down services frequently, but DNS records tend to accumulate unless explicitly managed.</li>
+<li><strong>Different teams own different parts.</strong> The team that created the cloud resource may not have access to DNS management, and the team that manages DNS may not know the resource was removed.</li>
+<li><strong>No automated link between resources and DNS.</strong> Most organizations have no mechanism to detect when a DNS target stops existing.</li>
+<li><strong>Shadow IT and forgotten proof-of-concepts.</strong> Developers create temporary subdomains for testing or demos and never clean them up.</li>
+<li><strong>Mergers, acquisitions, and reorganizations.</strong> DNS zones inherited from acquired companies are often poorly inventoried, and the original infrastructure owners are no longer available.</li>
+</ul>
+<h3 id="record-types-at-risk">Record Types at Risk<a class="headerlink" href="#record-types-at-risk" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>CNAME records</strong> are the most common vector. If the canonical name resolves to a service that can be claimed, takeover is possible.</li>
+<li><strong>A records</strong> pointing to released IP addresses can be vulnerable if the IP is reassigned and the attacker obtains it. This is common in cloud environments where elastic IPs are released back to the provider's pool.</li>
+<li><strong>NS records</strong> delegating a subdomain to a third-party DNS provider are particularly dangerous. If the account at the DNS provider is closed, anyone who creates a new account can potentially claim the delegated zone and control all records under that subdomain.</li>
+<li><strong>MX records</strong> pointing to deprovisioned mail services can allow an attacker to receive email for the subdomain. Beyond intercepting password reset emails, this enables a more severe attack: most Certificate Authorities accept email-based domain validation (DV) using addresses like <code>admin@subdomain.example.com</code>. An attacker controlling MX records can complete DV challenges and obtain legitimate TLS certificates for the subdomain, enabling transparent HTTPS phishing or man-in-the-middle attacks.</li>
+</ul>
+<h2 id="cloud-provider-vulnerability-reference">Cloud Provider Vulnerability Reference<a class="headerlink" href="#cloud-provider-vulnerability-reference" title="Permanent link">&para;</a></h2>
+<p>Not all cloud services are equally vulnerable. The key factor is whether the service allows a new customer to claim a previously used hostname or resource name. This table is a snapshot; cloud providers continuously update their policies, so always verify current behavior against the community-maintained <a href="https://github.com/EdOverflow/can-i-take-over-xyz">can-i-take-over-xyz</a> repository.</p>
+<h3 id="high-risk-takeover-possible-when-resource-is-removed">High Risk: Takeover Possible When Resource Is Removed<a class="headerlink" href="#high-risk-takeover-possible-when-resource-is-removed" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Provider/Service</th>
+<th>Vulnerable Resource</th>
+<th>Indicator (CNAME Target)</th>
+<th>Takeover Mechanism</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AWS S3 (Website Hosting)</td>
+<td>S3 bucket</td>
+<td><code>*.s3.amazonaws.com</code>, <code>*.s3-website-*.amazonaws.com</code></td>
+<td>Bucket names are globally unique across all AWS accounts. If a bucket is deleted, any AWS account can recreate it with the same name and serve content on the CNAME.</td>
+</tr>
+<tr>
+<td>AWS Elastic Beanstalk</td>
+<td>Environment</td>
+<td><code>*.elasticbeanstalk.com</code></td>
+<td>Environment CNAMEs are globally unique and released on environment termination. An attacker can create a new environment with the same CNAME prefix.</td>
+</tr>
+<tr>
+<td>Azure App Service</td>
+<td>Web App</td>
+<td><code>*.azurewebsites.net</code></td>
+<td>App names are globally unique. After deletion, any Azure tenant can create a new app with the same name. Azure offers a <a href="https://learn.microsoft.com/en-us/azure/app-service/app-service-web-tutorial-custom-domain">domain verification mechanism</a> to mitigate this; see Prevention Strategies.</td>
+</tr>
+<tr>
+<td>Azure Traffic Manager</td>
+<td>Profile</td>
+<td><code>*.trafficmanager.net</code></td>
+<td>Profile names are globally unique and reclaimable after deletion.</td>
+</tr>
+<tr>
+<td>Azure CDN</td>
+<td>Endpoint</td>
+<td><code>*.azureedge.net</code></td>
+<td>Endpoint names are globally unique. A deleted endpoint name can be registered by another tenant.</td>
+</tr>
+<tr>
+<td>GitHub Pages (Custom Domains)</td>
+<td>Custom domain on repository</td>
+<td><code>*.github.io</code></td>
+<td>The primary risk is with custom domain configurations. When a repository using a custom domain is deleted or made private, the custom domain association is removed and an attacker can configure the same custom domain on their own GitHub Pages repository. Note: claiming the default <code>username.github.io</code> subdomain requires registering that GitHub username, which is not possible while the original account exists.</td>
+</tr>
+<tr>
+<td>Heroku</td>
+<td>App</td>
+<td><code>*.herokuapp.com</code></td>
+<td>App names are globally unique and released on app deletion. Any Heroku account can claim the name.</td>
+</tr>
+<tr>
+<td>Shopify</td>
+<td>Store</td>
+<td><code>shops.myshopify.com</code></td>
+<td>Custom domain associations can be claimed by any Shopify store.</td>
+</tr>
+<tr>
+<td>Netlify</td>
+<td>Site</td>
+<td><code>*.netlify.app</code>, <code>*.netlify.com</code></td>
+<td>Site names are reclaimable after deletion.</td>
+</tr>
+<tr>
+<td>Fastly</td>
+<td>CDN service</td>
+<td><code>*.fastly.net</code>, <code>*.global.ssl.fastly.net</code></td>
+<td>An attacker with a Fastly account can add the victim's domain to their own Fastly service configuration.</td>
+</tr>
+<tr>
+<td>Zendesk</td>
+<td>Support portal</td>
+<td><code>*.zendesk.com</code></td>
+<td>Support portal subdomain names can be reclaimed by new Zendesk accounts.</td>
+</tr>
+<tr>
+<td>Cargo Collective</td>
+<td>Portfolio</td>
+<td><code>*.cargocollective.com</code></td>
+<td>Portfolio names are reclaimable.</td>
+</tr>
+<tr>
+<td>Tumblr</td>
+<td>Blog</td>
+<td><code>*.tumblr.com</code></td>
+<td>Custom domain associations are released when a blog is deleted.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="conditional-risk-takeover-possible-under-specific-circumstances">Conditional Risk: Takeover Possible Under Specific Circumstances<a class="headerlink" href="#conditional-risk-takeover-possible-under-specific-circumstances" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Provider/Service</th>
+<th>Condition</th>
+<th>Details</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AWS CloudFront</td>
+<td>Distribution deleted while CNAME remains</td>
+<td>When a CloudFront distribution is deleted but the CNAME record still points to the <code>*.cloudfront.net</code> hostname, an attacker can create a new CloudFront distribution and add the victim's domain as an alternate domain name (CNAME). CloudFront does not always verify domain ownership when adding alternate domain names, making this exploitable. If the distribution still exists but is merely disabled, takeover is not possible.</td>
+</tr>
+<tr>
+<td>AWS Route 53 (NS Delegation)</td>
+<td>NS delegation to deleted hosted zone</td>
+<td>If a subdomain's NS records delegate to a Route 53 hosted zone that has been deleted, an attacker can create a new hosted zone for the same subdomain and may receive the same NS server assignments, effectively taking control of all DNS records for that subdomain.</td>
+</tr>
+<tr>
+<td>Google Cloud Storage</td>
+<td>Bucket deleted</td>
+<td>GCS bucket names are globally unique and can be reclaimed after deletion. Google imposes rate limits on bucket creation and may temporarily reserve recently deleted names, but this is not a documented security guarantee and should not be relied upon as a protection. Remove DNS records when decommissioning GCS buckets.</td>
+</tr>
+<tr>
+<td>Cloudflare</td>
+<td>Misconfigured SaaS setup</td>
+<td>Standard Cloudflare usage requires domain ownership verification via nameserver delegation. However, Cloudflare for SaaS (custom hostnames) configurations should use the <a href="https://developers.cloudflare.com/cloudflare-for-platforms/cloudflare-for-saas/security/certificate-management/">custom hostname verification</a> feature to prevent hostname claim conflicts.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="service-fingerprints-for-detection">Service Fingerprints for Detection<a class="headerlink" href="#service-fingerprints-for-detection" title="Permanent link">&para;</a></h3>
+<p>When scanning for potential subdomain takeovers, look for these distinctive error responses that indicate the backend resource no longer exists:</p>
+<table>
+<thead>
+<tr>
+<th>Service</th>
+<th>Error Response Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AWS S3</td>
+<td><code>NoSuchBucket</code>, <code>The specified bucket does not exist</code></td>
+</tr>
+<tr>
+<td>GitHub Pages</td>
+<td><code>There isn't a GitHub Pages site here.</code></td>
+</tr>
+<tr>
+<td>Heroku</td>
+<td><code>No such app</code>, <code>herokucdn.com/error-pages/no-such-app.html</code></td>
+</tr>
+<tr>
+<td>Azure App Service</td>
+<td><code>404 Web Site not found</code> on <code>*.azurewebsites.net</code></td>
+</tr>
+<tr>
+<td>Shopify</td>
+<td><code>Sorry, this shop is currently unavailable.</code></td>
+</tr>
+<tr>
+<td>Netlify</td>
+<td><code>Not Found - Request ID:</code></td>
+</tr>
+<tr>
+<td>Fastly</td>
+<td><code>Fastly error: unknown domain:</code></td>
+</tr>
+<tr>
+<td>Zendesk</td>
+<td><code>Help Center Closed</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="prevention-strategies">Prevention Strategies<a class="headerlink" href="#prevention-strategies" title="Permanent link">&para;</a></h2>
+<h3 id="1-manage-dns-record-lifecycle-during-decommissioning">1. Manage DNS Record Lifecycle During Decommissioning<a class="headerlink" href="#1-manage-dns-record-lifecycle-during-decommissioning" title="Permanent link">&para;</a></h3>
+<p>The correct order of operations when decommissioning a service is:</p>
+<ol>
+<li><strong>Redirect or serve a maintenance page</strong> at the subdomain to avoid broken links and user confusion during the transition period</li>
+<li><strong>Update or remove the DNS record</strong> pointing to the resource</li>
+<li><strong>Wait for DNS propagation</strong> (at least the TTL duration, typically 300 to 3600 seconds)</li>
+<li><strong>Then decommission the cloud resource</strong></li>
+</ol>
+<p>The common mistake is doing these steps in reverse: deleting the cloud resource first, which creates an immediate window for takeover that persists until someone notices the dangling record.</p>
+<p>In practice, immediately deleting the DNS record can cause disruption if the subdomain is linked from other pages, bookmarked by users, or indexed by search engines. Pointing the record to an internal server that returns an HTTP redirect to the main domain or a simple maintenance page is a reasonable intermediate step that eliminates the takeover risk while preserving a functional user experience during the transition.</p>
+<h3 id="2-maintain-a-dns-inventory-linked-to-resource-ownership">2. Maintain a DNS Inventory Linked to Resource Ownership<a class="headerlink" href="#2-maintain-a-dns-inventory-linked-to-resource-ownership" title="Permanent link">&para;</a></h3>
+<p>Keep a documented mapping between DNS records and the cloud resources they point to:</p>
+<ul>
+<li><strong>What resource</strong> does each CNAME, A, or NS record resolve to?</li>
+<li><strong>Which team</strong> owns the resource?</li>
+<li><strong>What project or service</strong> is it part of?</li>
+<li><strong>When</strong> was it created and when is it expected to be decommissioned?</li>
+<li><strong>What is the business justification</strong> for the subdomain?</li>
+</ul>
+<p>This can be as simple as a spreadsheet for small organizations or integrated into a Configuration Management Database (CMDB) for larger ones. The critical requirement is that it is consulted and updated during every infrastructure change. Infrastructure-as-Code tools like Terraform, Pulumi, or AWS CDK can also serve as a living inventory when DNS records and cloud resources are managed in the same codebase.</p>
+<h3 id="3-implement-automated-dangling-record-detection">3. Implement Automated Dangling Record Detection<a class="headerlink" href="#3-implement-automated-dangling-record-detection" title="Permanent link">&para;</a></h3>
+<p>Regularly scan DNS records to identify entries pointing to non-existent resources:</p>
+<ul>
+<li><strong>Scheduled scans:</strong> Run automated checks daily or weekly against all DNS records to verify that targets still resolve and respond with expected content, not cloud provider error pages.</li>
+<li><strong>CI/CD integration:</strong> Add DNS validation to deployment and teardown pipelines. When a service is removed, the pipeline should verify that associated DNS records are also removed before marking the decommissioning as complete.</li>
+<li><strong>DNS change monitoring:</strong> Alert when new CNAME records are created and when target resources return errors such as HTTP 404, NXDOMAIN, or cloud provider default error pages.</li>
+</ul>
+<p>Open-source tools for detection:</p>
+<ul>
+<li><a href="https://github.com/punk-security/dnsReaper">dnsReaper</a>: Actively maintained subdomain takeover scanner supporting 40+ service fingerprints with signature-based detection</li>
+<li><a href="https://github.com/projectdiscovery/nuclei">nuclei</a>: General-purpose vulnerability scanner with a dedicated set of <a href="https://github.com/projectdiscovery/nuclei-templates/tree/main/dns">subdomain takeover detection templates</a></li>
+<li><a href="https://github.com/EdOverflow/can-i-take-over-xyz">can-i-take-over-xyz</a>: Community-maintained reference documenting which services are and are not vulnerable, with proof-of-concept details</li>
+</ul>
+<h3 id="4-use-domain-verification-where-available">4. Use Domain Verification Where Available<a class="headerlink" href="#4-use-domain-verification-where-available" title="Permanent link">&para;</a></h3>
+<p>Several cloud providers offer domain verification mechanisms that prevent unauthorized users from associating a custom domain with their account. When available, these provide a strong defense layer:</p>
+<ul>
+<li><strong>Azure App Service:</strong> Supports <a href="https://learn.microsoft.com/en-us/azure/app-service/app-service-web-tutorial-custom-domain">custom domain verification via TXT records</a>. Adding a verification TXT record (e.g., <code>asuid.subdomain TXT &lt;verification-id&gt;</code>) ties the custom domain to a specific Azure subscription. Keep this TXT record in place even after decommissioning the App Service to prevent another tenant from claiming the domain.</li>
+<li><strong>Google Cloud:</strong> Many GCP services require domain verification through Google Search Console or a DNS TXT record before a custom domain can be associated. Retain verification records as long as the DNS record exists.</li>
+<li><strong>Cloudflare:</strong> Standard setup requires domain ownership via nameserver delegation. Cloudflare for SaaS configurations should use the <a href="https://developers.cloudflare.com/cloudflare-for-platforms/cloudflare-for-saas/security/certificate-management/">custom hostname verification</a> feature.</li>
+<li><strong>AWS:</strong> AWS does not currently offer a universal domain verification mechanism for services like S3 or Elastic Beanstalk. For CloudFront, associating a distribution with a custom domain and keeping the distribution active (even if serving a redirect) prevents another account from claiming the domain name as an alternate CNAME.</li>
+</ul>
+<p>Where no domain verification is available, the DNS record itself is the only control. Removing it promptly on decommissioning is the only reliable protection.</p>
+<h3 id="5-restrict-wildcard-dns-records">5. Restrict Wildcard DNS Records<a class="headerlink" href="#5-restrict-wildcard-dns-records" title="Permanent link">&para;</a></h3>
+<p>Wildcard DNS records (<code>*.example.com</code>) are especially dangerous because they resolve for any subdomain, including those matching services that no longer exist. Any service that previously existed under the wildcard could potentially be taken over, and the organization may not even know which subdomains were in use.</p>
+<p>Avoid wildcard records unless absolutely necessary. If required:</p>
+<ul>
+<li>Scope them as narrowly as possible (e.g., <code>*.staging.example.com</code> rather than <code>*.example.com</code>)</li>
+<li>Combine with a reverse proxy or load balancer that maintains an allowlist of valid hostnames and returns an error for unrecognized ones</li>
+<li>Monitor Certificate Transparency logs for unexpected certificate issuance on subdomains matching the wildcard</li>
+</ul>
+<h3 id="6-establish-a-decommissioning-checklist">6. Establish a Decommissioning Checklist<a class="headerlink" href="#6-establish-a-decommissioning-checklist" title="Permanent link">&para;</a></h3>
+<p>Create a formal checklist that teams must follow when removing any externally facing service:</p>
+<ul>
+<li>[ ] Identify all DNS records (CNAME, A, MX, NS, TXT) associated with the service</li>
+<li>[ ] Point the DNS record to a maintenance page or redirect (if immediate removal causes user-facing disruption)</li>
+<li>[ ] Remove or update DNS records</li>
+<li>[ ] Wait for DNS propagation (at least the TTL duration)</li>
+<li>[ ] Decommission the cloud resource</li>
+<li>[ ] Revoke or let expire any SSL/TLS certificates issued for the subdomain</li>
+<li>[ ] Update the DNS inventory documentation</li>
+<li>[ ] Remove the subdomain from any OAuth redirect URI allowlists, CSP directives, or CORS configurations</li>
+<li>[ ] Verify that the subdomain no longer resolves or returns expected content</li>
+<li>[ ] Run a takeover detection scan against the subdomain to confirm it is not claimable</li>
+</ul>
+<h3 id="7-limit-the-blast-radius-with-proper-security-scoping">7. Limit the Blast Radius with Proper Security Scoping<a class="headerlink" href="#7-limit-the-blast-radius-with-proper-security-scoping" title="Permanent link">&para;</a></h3>
+<p>Even if a subdomain takeover occurs, limit the damage by properly scoping security controls:</p>
+<ul>
+<li><strong>Cookies:</strong> Do not scope session cookies to the parent domain (<code>.example.com</code>) unless necessary. Prefer setting cookies on the specific fully qualified subdomain (<code>app.example.com</code>). Use the <code>__Host-</code> cookie prefix where possible, which restricts the cookie to the exact origin.</li>
+<li><strong>Content Security Policy:</strong> Avoid using <code>*.example.com</code> in CSP directives. Explicitly list trusted subdomains. A taken-over subdomain matching a CSP wildcard allows the attacker to inject scripts or exfiltrate data without violating the policy.</li>
+<li><strong>CORS:</strong> Do not use wildcard subdomain patterns in <code>Access-Control-Allow-Origin</code> validation. Validate against an explicit allowlist of trusted origins.</li>
+<li><strong>OAuth/SSO:</strong> Do not whitelist entire subdomain patterns in redirect URI validations. Use exact-match redirect URIs. A taken-over subdomain in an OAuth redirect allowlist enables token theft.</li>
+<li><strong>Email (SPF/DKIM/DMARC):</strong> If SPF records include mechanisms that match the taken-over subdomain's IP, the attacker can send SPF-authenticated email appearing to originate from your domain.</li>
+</ul>
+<h2 id="monitoring-and-detection">Monitoring and Detection<a class="headerlink" href="#monitoring-and-detection" title="Permanent link">&para;</a></h2>
+<h3 id="continuous-dns-monitoring">Continuous DNS Monitoring<a class="headerlink" href="#continuous-dns-monitoring" title="Permanent link">&para;</a></h3>
+<p>Implement ongoing monitoring to catch dangling records before attackers do:</p>
+<ul>
+<li><strong>Compare DNS records against live resources.</strong> For every CNAME in your zone, verify the target still exists and responds with expected content rather than a cloud provider error page.</li>
+<li><strong>Monitor for service fingerprints.</strong> The error responses listed in the Service Fingerprints table above are strong indicators that a resource has been removed while the DNS record remains. Automated scanning for these patterns should run at least weekly.</li>
+<li><strong>Track DNS zone changes.</strong> Use version-controlled DNS management (e.g., Terraform, OctoDNS, or DNSControl) so all record additions and removals are reviewed, approved, and logged. This also creates an audit trail for investigating how a dangling record was introduced.</li>
+<li><strong>Monitor Certificate Transparency logs.</strong> Use services like <a href="https://crt.sh">crt.sh</a> or <a href="https://sslmate.com/certspotter/">certspotter</a> to alert on any certificate issuance for your subdomains. An unexpected certificate issued for a subdomain you don't control is a strong indicator that takeover has already occurred or is in progress.</li>
+</ul>
+<h3 id="indicators-of-compromise">Indicators of Compromise<a class="headerlink" href="#indicators-of-compromise" title="Permanent link">&para;</a></h3>
+<p>Signs that a subdomain may have already been taken over:</p>
+<ul>
+<li>Subdomain suddenly serves unexpected content, a parking page, or a different application than expected</li>
+<li>SSL/TLS certificate for the subdomain was issued to an unknown entity or organization (visible in Certificate Transparency logs)</li>
+<li>Users report phishing emails or pages appearing to come from the subdomain</li>
+<li>Web application firewall or proxy logs show the subdomain resolving to an IP address outside your known infrastructure ranges</li>
+<li>DMARC aggregate reports show email being sent from the subdomain that your organization did not originate</li>
+</ul>
+<h2 id="incident-response">Incident Response<a class="headerlink" href="#incident-response" title="Permanent link">&para;</a></h2>
+<p>If a subdomain takeover is discovered:</p>
+<ol>
+<li><strong>Remove the DNS record immediately.</strong> This is the fastest mitigation. It breaks the link between your domain and the attacker's resource. If the record cannot be removed quickly, update it to point to an IP or CNAME you control.</li>
+<li><strong>Revoke or request revocation of any certificates</strong> issued for the subdomain during the takeover period. Check Certificate Transparency logs to identify all certificates that were issued.</li>
+<li><strong>Assess the impact.</strong> Determine whether cookies scoped to the parent domain could have been stolen, whether phishing content was served and for how long, whether any OAuth or SSO flows referenced the subdomain, and whether the attacker could have received email for the subdomain (MX-based takeover).</li>
+<li><strong>Notify affected users</strong> if there is evidence that sensitive data was exposed, credentials were phished, or session cookies were intercepted.</li>
+<li><strong>Investigate the root cause.</strong> Identify the process gap that allowed the dangling record to persist and update decommissioning procedures to prevent recurrence.</li>
+<li><strong>Scan all DNS zones</strong> owned by the organization for other dangling records. The same process gap likely affects other subdomains.</li>
+<li><strong>Document the incident</strong> with a timeline, impact assessment, and corrective actions for internal review and to improve organizational response to future occurrences.</li>
+</ol>
+<h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management_Testing/10-Test_for_Subdomain_Takeover">OWASP Web Security Testing Guide: Test for Subdomain Takeover (WSTG-CONFIG-10)</a></li>
+<li><a href="https://github.com/EdOverflow/can-i-take-over-xyz">can-i-take-over-xyz: Community-maintained list of vulnerable services</a></li>
+<li><a href="https://learn.microsoft.com/en-us/azure/security/fundamentals/subdomain-takeover">Microsoft: Prevent dangling DNS entries and avoid subdomain takeover</a></li>
+<li><a href="https://github.com/punk-security/dnsReaper">dnsReaper: Subdomain takeover detection tool</a></li>
+<li><a href="https://hackerone.com/hacktivity?querystring=subdomain+takeover">HackerOne Hacktivity: Subdomain takeover reports</a></li>
+</ul>
 
 
 
